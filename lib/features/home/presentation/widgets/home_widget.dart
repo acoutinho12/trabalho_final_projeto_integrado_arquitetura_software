@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ollen/core/utils/media_query.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/home/presentation/widgets/widgets.dart';
 
@@ -16,11 +17,11 @@ class HomeWidget extends StatelessWidget {
             delegate: SliverChildBuilderDelegate((context, index) {
               return ProductCard(product: products[index]);
             }, childCount: products.length),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              mainAxisSpacing: 10.0,
-              crossAxisSpacing: 10.0,
-              childAspectRatio: 300/450
+              mainAxisSpacing: 8.0,
+              crossAxisSpacing: 8.0,
+              childAspectRatio: width(context) / height(context),
             ),
           ),
         ),

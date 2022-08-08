@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
       title: 'Ollen',
       home: buildBody(context),
       theme: ThemeData.light().copyWith(
-        primaryColor: Color.fromARGB(255, 125, 121, 46),
+        primaryColor: const Color.fromARGB(255, 125, 121, 46),
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8),
@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<HomeBloc>(),
       child: Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: const Color.fromARGB(255, 244, 244, 244),
         body: SafeArea(
           child: Center(
             child: Expanded(
