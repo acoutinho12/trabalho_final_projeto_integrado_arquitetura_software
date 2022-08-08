@@ -1,6 +1,9 @@
 part of 'home_bloc.dart';
 
-@freezed
-abstract class HomeEvent with _$HomeEvent {
-  const factory HomeEvent.getAllProducts() = _GetAllProducts;
+@immutable
+abstract class HomeEvent extends Equatable {
+  @override
+  List<Object> get props => [];
 }
+
+class GetAllProducts extends HomeEvent {}

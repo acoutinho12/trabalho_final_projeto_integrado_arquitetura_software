@@ -6,9 +6,11 @@ import 'package:ollen/core/error/failures.dart';
 import 'package:dartz/dartz.dart';
 import 'package:ollen/features/home/domain/repositories/product_repository.dart';
 
-@lazySingleton
+@LazySingleton(as: ProductRepository)
 class ProductRepositoryImpl implements ProductRepository {
-  late final ProductRemoteDataSource remoteDataSource;
+  final ProductRemoteDataSource remoteDataSource;
+
+  ProductRepositoryImpl(this.remoteDataSource);
 
   @override
   Future<Either<Failure, Products>> getProducts() async {

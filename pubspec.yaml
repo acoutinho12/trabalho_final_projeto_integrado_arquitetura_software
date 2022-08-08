@@ -1,5 +1,5 @@
 name: ollen
-description: A new Flutter project.
+description: A Brewery Marketplace.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -35,7 +35,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   equatable: ^2.0.3
-  flutter_bloc:
+  flutter_bloc: ^7.0.0
   dartz: ^0.10.1
   http: ^0.13.5
   get_it: ^7.2.0
