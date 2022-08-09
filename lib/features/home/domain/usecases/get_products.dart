@@ -14,6 +14,7 @@ class GetProducts implements UseCase<Products, NoParams> {
 
   @override
   Future<Either<Failure, Products>> call(NoParams params) async {
+    await Future.delayed(const Duration(milliseconds: 3000));
     return await repository.getProducts();
   }
 }

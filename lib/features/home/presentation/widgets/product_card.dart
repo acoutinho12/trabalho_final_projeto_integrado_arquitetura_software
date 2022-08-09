@@ -7,10 +7,12 @@ import 'package:ollen/features/home/presentation/widgets/favorite_product.dart';
 class ProductCard extends StatelessWidget {
   final Product product;
   const ProductCard({Key? key, required this.product}) : super(key: key);
-  static const _sizedBoxHeiht = 16.0;
-
   @override
   Widget build(BuildContext context) {
+    const sizedBoxHeiht = 12.0;
+    final aspectRatioConstant = (width(context) / height(context)) * 2.5;
+    final imageWidth = width(context) * 0.18;
+    final imageHeight = height(context) * 0.20;
     return Container(
       decoration: BoxDecoration(
           boxShadow: [
@@ -27,46 +29,47 @@ class ProductCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: BorderRadius.circular(8.0),
           border: Border.all(color: Colors.black.withOpacity(0.6), width: 0.5)),
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         children: [
           CachedNetworkImage(
               imageUrl: product.imageUrl,
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
-              width: width(context) * 0.18,
-              height: height(context) * 0.20,
+              width: imageWidth,
+              height: imageHeight,
               fit: BoxFit.fill),
-          const SizedBox(height: _sizedBoxHeiht),
+          const SizedBox(height: sizedBoxHeiht),
           Text(
             product.name,
-            style: const TextStyle(
-              fontSize: 14.0,
+            style: TextStyle(
+              fontSize: 14.0 * aspectRatioConstant,
               fontFamily: 'Roboto',
-              color: Color(0xFF212121),
+              color: const Color(0xFF212121),
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: _sizedBoxHeiht),
+          const SizedBox(height: sizedBoxHeiht),
           Text(
             product.description,
-            maxLines: 4,
+            maxLines: 5,
             overflow: TextOverflow.ellipsis,
-            style: const TextStyle(
-              fontSize: 12.0,
+            style: TextStyle(
+              fontSize: 12.0 * aspectRatioConstant,
               fontFamily: 'Roboto',
-              color: Color(0xFF212121),
+              color: const Color(0xFF212121),
             ),
           ),
+          const SizedBox(height: sizedBoxHeiht),
           Row(
             children: [
               Text(
                 product.price,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
-                  fontSize: 14.0,
+                style: TextStyle(
+                  fontSize: 14.0 * aspectRatioConstant,
                   fontFamily: 'Roboto',
-                  color: Color(0xFF212121),
+                  color: const Color(0xFF212121),
                   fontWeight: FontWeight.bold,
                 ),
               ),
