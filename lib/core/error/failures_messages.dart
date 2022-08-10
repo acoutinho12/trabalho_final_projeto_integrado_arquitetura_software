@@ -1,1 +1,1 @@
-const server_failure_message = "Erro ao processar sua solicitacao";
+const serverFailureMessage = "Erro ao processar sua solicitacao";

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:ollen/features/home/presentation/pages/home_page.dart';
+import 'package:ollen/core/features/router/presentation/pages/router_page.dart';
 import 'injection.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  configureDependencies();
-  runApp(const HomePage());
+  await configureDependencies();
+  runApp(RouterPage());
 }
-

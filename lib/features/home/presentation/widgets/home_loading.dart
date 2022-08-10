@@ -13,20 +13,11 @@ class LoadingWidget extends StatefulWidget {
   }
 }
 
-class _LoadingWidget extends State<LoadingWidget>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller;
+class _LoadingWidget extends State<LoadingWidget> {
   @override
   void initState() {
     super.initState();
     BlocProvider.of<HomeBloc>(context).add(GetAllProducts());
-    _controller = AnimationController(vsync: this);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override

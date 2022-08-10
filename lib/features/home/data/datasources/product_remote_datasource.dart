@@ -215,9 +215,9 @@ abstract class ProductRemoteDataSource {
 
 @LazySingleton(as: ProductRemoteDataSource)
 class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
-  final http.Client _client;
+  // final http.Client _client;
 
-  ProductRemoteDataSourceImpl(this._client);
+  // ProductRemoteDataSourceImpl(this._client);
 
   @override
   Future<ProductsModel> getProducts() async {
@@ -230,12 +230,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
     // );
 
     final response = http.Response("", 200);
-    final ProductsModel listProduct = [];
     if (response.statusCode == 200) {
-      for (var products in productsJson) {
-        listProduct.add(ProductModel.fromMap(products));
-      }
-      return listProduct;
+      return ProductModel.productsFromJson(json.encode(productsJson));
     } else {
       throw ServerException();
     }

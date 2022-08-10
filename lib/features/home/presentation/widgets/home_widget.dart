@@ -29,7 +29,7 @@ class HomeWidget extends StatelessWidget {
                 crossAxisCount: 2,
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
-                childAspectRatio: width(context) / height(context),
+                childAspectRatio: width(context) * 1.1 / height(context) * 1.2,
               ),
             ),
           ),

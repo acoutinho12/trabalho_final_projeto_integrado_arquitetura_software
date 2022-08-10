@@ -20,7 +20,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Stream<HomeState> mapEventToState(
     HomeEvent event,
   ) async* {
-    if(event is GetAllProducts) {
+    if (event is GetAllProducts) {
       yield Loading();
       final productsOrFail = await _getProducts(NoParams());
       yield productsOrFail.fold(
@@ -32,9 +32,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   String _failureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return server_failure_message;
+        return serverFailureMessage;
       default:
-        return server_failure_message;
+        return serverFailureMessage;
     }
   }
 }

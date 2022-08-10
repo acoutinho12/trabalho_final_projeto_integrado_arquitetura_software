@@ -21,5 +21,4 @@ class ProductRepositoryImpl implements ProductRepository {
         return Left(ServerFailure());
       }
   }
-
 }

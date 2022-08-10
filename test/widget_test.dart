@@ -7,14 +7,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ollen/features/home/presentation/pages/home_page.dart';
-
-import 'package:ollen/main.dart';
+import 'package:ollen/core/features/router/presentation/pages/router_page.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const HomePage());
+    await tester.pumpWidget(RouterPage());
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
