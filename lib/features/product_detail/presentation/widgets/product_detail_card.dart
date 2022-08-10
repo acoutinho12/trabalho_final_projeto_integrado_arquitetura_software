@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
 import 'package:ollen/core/widgets/increment_or_decrement_widget.dart';
 import 'package:ollen/core/widgets/rating_widget.dart';
@@ -12,36 +13,31 @@ class ProductDetailCard extends StatefulWidget {
   const ProductDetailCard({Key? key, required this.product}) : super(key: key);
 
   @override
-  State<ProductDetailCard> createState() => _ProductDetailCardState(product);
+  State<ProductDetailCard> createState() => _ProductDetailCardState();
 }
 
 class _ProductDetailCardState extends State<ProductDetailCard> {
-  final Product product;
+  late Product product = widget.product;
+  int quantity = 1;
   double rating = Random().nextDouble() * 5.0;
   int reviews = Random().nextInt(200);
-
-  _ProductDetailCardState(this.product);
   @override
   Widget build(BuildContext context) {
     const sizedBoxHeiht = 12.0;
-    final imageWidth = width(context) * 0.30;
-    final imageHeight = height(context) * 0.32;
     return Container(
       padding: const EdgeInsets.only(top: 48.0),
       child: Column(
         children: [
           Expanded(
-            flex: 6,
+            flex: 4,
             child: CachedNetworkImage(
                 imageUrl: widget.product.imageUrl,
                 placeholder: (context, url) =>
                     const CircularProgressIndicator(),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
-                width: imageWidth,
-                height: imageHeight,
                 fit: BoxFit.fill),
           ),
-          const SizedBox(height: sizedBoxHeiht * 10),
+          const Spacer(),
           Expanded(
             flex: 6,
             child: Container(
@@ -60,17 +56,19 @@ class _ProductDetailCardState extends State<ProductDetailCard> {
                   )
                 ],
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(32.0),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(32.0),
+                    topRight: Radius.circular(32.0)),
               ),
               child: Column(children: [
                 Row(
                   children: [
                     Text(
                       widget.product.name,
-                      style: TextStyle(
-                        fontSize: 14.0 * aspectRatioConstant(context),
+                      style: const TextStyle(
+                        fontSize: 14.0,
                         fontFamily: 'Roboto',
-                        color: const Color(0xFF212121),
+                        color: ColorConstants.textPrimaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -80,12 +78,12 @@ class _ProductDetailCardState extends State<ProductDetailCard> {
                         RatingWidget(
                           rating: rating,
                           onRatingChanged: (rating) {},
-                          color: Colors.black,
+                          color: ColorConstants.primaryColor,
                         ),
                         Text(
                           "($reviews Reviews)",
                           style: TextStyle(
-                            fontSize: 10.0 * aspectRatioConstant(context),
+                            fontSize: 10.0,
                             fontFamily: 'Roboto',
                             color: Colors.grey.withOpacity(0.8),
                           ),
@@ -99,10 +97,10 @@ class _ProductDetailCardState extends State<ProductDetailCard> {
                   widget.product.description,
                   maxLines: 6,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 12.0 * aspectRatioConstant(context),
+                  style: const TextStyle(
+                    fontSize: 12.0,
                     fontFamily: 'Roboto',
-                    color: const Color(0xFF212121),
+                    color: ColorConstants.textPrimaryColor,
                   ),
                 ),
                 const SizedBox(height: sizedBoxHeiht),
@@ -111,21 +109,26 @@ class _ProductDetailCardState extends State<ProductDetailCard> {
                     Text(
                       widget.product.price,
                       textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontSize: 20.0 * aspectRatioConstant(context),
+                      style: const TextStyle(
+                        fontSize: 20.0,
                         fontFamily: 'Roboto',
-                        color: const Color(0xFF212121),
+                        color: ColorConstants.textPrimaryColor,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const Spacer(),
-                    const IncrementOrDecrementWidget(
-                      quantity: 1,
+                    IncrementOrDecrementWidget(
+                      quantity: quantity,
+                      onValueChangeCallback: (quantity) {
+                        setState(() {
+                          this.quantity = quantity;
+                        });
+                      },
                     ),
                     const Spacer(),
                     AddToCart(
                       product: product,
-                      quantity: 1,
+                      quantity: quantity,
                     ),
                   ],
                 ),

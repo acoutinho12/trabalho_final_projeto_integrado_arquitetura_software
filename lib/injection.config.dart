@@ -13,11 +13,12 @@ import 'package:shared_preferences/shared_preferences.dart' as _i7;
 import 'core/features/cart/data/datasource/cart_local_data_source.dart' as _i8;
 import 'core/features/cart/data/repositories/cart_repository_impl.dart' as _i10;
 import 'core/features/cart/domain/repositories/cart_repository.dart' as _i9;
+import 'core/features/cart/domain/usecases.dart/add_cart_product.dart' as _i15;
 import 'core/features/cart/domain/usecases.dart/get_cart_products.dart' as _i11;
-import 'core/features/cart/domain/usecases.dart/set_cart_product.dart' as _i14;
-import 'core/features/cart/presentation/bloc/cart_bloc.dart' as _i15;
-import 'core/injectables/http_injectable_module.dart' as _i16;
-import 'core/injectables/shared_preferences_injectable_module.dart' as _i17;
+import 'core/features/cart/domain/usecases.dart/remove_from_cart.dart' as _i14;
+import 'core/features/cart/presentation/bloc/cart_bloc.dart' as _i16;
+import 'core/injectables/http_injectable_module.dart' as _i17;
+import 'core/injectables/shared_preferences_injectable_module.dart' as _i18;
 import 'features/home/data/datasources/product_remote_datasource.dart' as _i4;
 import 'features/home/data/repositories/product_repository_impl.dart' as _i6;
 import 'features/home/domain/repositories/product_repository.dart' as _i5;
@@ -50,14 +51,16 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i12.GetProducts>(
       () => _i12.GetProducts(get<_i5.ProductRepository>()));
   gh.factory<_i13.HomeBloc>(() => _i13.HomeBloc(get<_i12.GetProducts>()));
-  gh.lazySingleton<_i14.SetCartProducts>(
-      () => _i14.SetCartProducts(get<_i9.CartRepository>()));
-  gh.factory<_i15.CartBloc>(() =>
-      _i15.CartBloc(get<_i11.GetCartProducts>(), get<_i14.SetCartProducts>()));
+  gh.lazySingleton<_i14.RemoveFromCart>(
+      () => _i14.RemoveFromCart(get<_i9.CartRepository>()));
+  gh.lazySingleton<_i15.AddToCartProducts>(
+      () => _i15.AddToCartProducts(get<_i9.CartRepository>()));
+  gh.factory<_i16.CartBloc>(() => _i16.CartBloc(get<_i11.GetCartProducts>(),
+      get<_i15.AddToCartProducts>(), get<_i14.RemoveFromCart>()));
   return get;
 }
 
-class _$HttpInjectableModule extends _i16.HttpInjectableModule {}
+class _$HttpInjectableModule extends _i17.HttpInjectableModule {}
 
 class _$SharedPreferencesInjectableModule
-    extends _i17.SharedPreferencesInjectableModule {}
+    extends _i18.SharedPreferencesInjectableModule {}

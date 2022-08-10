@@ -22,7 +22,7 @@ class ProductDetailPage extends StatelessWidget {
           title: product.name,
           withActions: true,
         ),
-        child: Expanded(child: ProductDetailCard(product: product)),
+        child: ProductDetailCard(product: product),
       ),
     );
   }

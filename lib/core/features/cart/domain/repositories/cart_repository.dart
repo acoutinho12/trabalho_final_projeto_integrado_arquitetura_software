@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
 import 'package:ollen/core/error/failures.dart';
-import 'package:ollen/features/home/data/models/product_model.dart';
-import 'package:ollen/features/home/domain/entities/product.dart';
+import 'package:ollen/core/features/cart/data/model/cart_product_model.dart';
+import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 
 abstract class CartRepository {
-  Future<Either<Failure, Products>> getCartProducts();
-  Future<Either<Failure, bool>> addToCart(ProductModel product);
+  Future<Either<Failure, CartProducts>> getCartProducts();
+  Future<Either<Failure, void>> addToCart(CartProductModel product);
+  Future<Either<Failure, CartProducts>> removeFromCart(CartProductModel product);
 }

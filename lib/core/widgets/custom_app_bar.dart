@@ -12,11 +12,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       iconTheme: const IconThemeData(
-        color: Colors.black, //change your color here
+        color: ColorConstants.primaryColor, //change your color here
       ),
       title: Text(
         title,
-        style: const TextStyle(fontSize: 16, color: Colors.black),
+        style:
+            const TextStyle(fontSize: 16, color: ColorConstants.primaryColor),
       ),
       backgroundColor: ColorConstants.appColor,
       actions: withActions
@@ -24,7 +25,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
               IconButton(
                 icon: const Icon(
                   Icons.shopping_cart,
-                  color: Colors.black,
+                  color: ColorConstants.primaryColor,
                 ),
                 onPressed: () {
                   AutoRouter.of(context).pushNamed('/cart-page');

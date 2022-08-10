@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ollen/core/features/cart/data/datasource/cart_local_data_source.dart';
+import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/features/cart/presentation/widgets/cart_loading.dart';
-import 'package:ollen/core/features/cart/presentation/widgets/cart_products_card.dart';
 import 'package:ollen/core/features/cart/presentation/widgets/cart_widget.dart';
 import 'package:ollen/core/widgets/custom_app_bar.dart';
 import 'package:ollen/core/widgets/default_scaffold.dart';
@@ -13,10 +14,11 @@ class CartPage extends StatefulWidget {
   const CartPage({Key? key}) : super(key: key);
 
   @override
-  _CartPageState createState() => _CartPageState();
+  CartPageState createState() => CartPageState();
 }
 
-class _CartPageState extends State<CartPage> {
+class CartPageState extends State<CartPage> {
+  CartProducts cartProducts = [];
   @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
@@ -33,11 +35,17 @@ class _CartPageState extends State<CartPage> {
             }
 
             return Container(
-              child: state.maybeWhen(
-                  loaded: (products) => CartWidget(products: products),
-                  error: (_) => const EmptyPage(),
-                  orElse: () => const CartLoadingWidget()),
-            );
+                child: state.maybeWhen(
+              loaded: (products) {
+                cartProducts = products;
+                return CartWidget(products: products);
+              },
+              error: (_) => EmptyPage(
+                action: action,
+              ),
+              orElse: () => const CartLoadingWidget(),
+              removingFromCart: () => CartWidget(products: cartProducts),
+            ));
           }),
         )),
       ),

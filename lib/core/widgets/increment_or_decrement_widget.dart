@@ -1,24 +1,25 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:ollen/core/utils/colors.dart';
+
+typedef OnValueChangeCallback = void Function(int quantity);
 
 class IncrementOrDecrementWidget extends StatefulWidget {
   final int quantity;
-  const IncrementOrDecrementWidget({Key? key, required this.quantity})
+  final OnValueChangeCallback onValueChangeCallback;
+  const IncrementOrDecrementWidget({Key? key, required this.quantity, required this.onValueChangeCallback})
       : super(key: key);
 
   @override
   State<IncrementOrDecrementWidget> createState() =>
-      _IncrementOrDecrementWidgetState(quantity: quantity);
+      IncrementOrDecrementWidgetState();
 }
 
-class _IncrementOrDecrementWidgetState
+class IncrementOrDecrementWidgetState
     extends State<IncrementOrDecrementWidget> {
-  late int quantity;
-  _IncrementOrDecrementWidgetState({required this.quantity});
+  late int quantity = widget.quantity;
   IconData plusIcon = Icons.add_circle;
   IconData minusIcon = Icons.remove_circle_outline;
-  Color color = Colors.black.withOpacity(0.8);
+  Color color = ColorConstants.primaryColor.withOpacity(0.8);
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -28,6 +29,7 @@ class _IncrementOrDecrementWidgetState
           onTap: () {
             setState(() {
               if (quantity > 1) quantity -= 1;
+              widget.onValueChangeCallback(quantity);
             });
           },
         ),
@@ -42,6 +44,7 @@ class _IncrementOrDecrementWidgetState
           onTap: () {
             setState(() {
               quantity += 1;
+              widget.onValueChangeCallback(quantity);
             });
           },
         ),

@@ -10,22 +10,18 @@ class EmptyPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _EmptyPage(action: action);
+    return EmptyPageState();
   }
 }
 
-class _EmptyPage extends State<EmptyPage> {
-  final void Function()? action;
-
-  _EmptyPage({this.action = onAction});
-
+class EmptyPageState extends State<EmptyPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height(context),
       child: Center(
         child: GestureDetector(
-          onTap: action,
+          onTap: widget.action,
           child: Column(
             children: [
               Lottie.network(
@@ -36,7 +32,9 @@ class _EmptyPage extends State<EmptyPage> {
                   width: 300,
                   height: 300),
               const Icon(Icons.refresh),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               const Text("Nenhum produto encontrado")
             ],
           ),

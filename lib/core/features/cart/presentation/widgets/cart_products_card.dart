@@ -1,65 +1,68 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
+import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
-import 'package:ollen/features/home/domain/entities/product.dart';
 
-import 'delete_from_cart_button.dart';
+import 'remove_from_cart_button.dart';
 import '../../../../widgets/increment_or_decrement_widget.dart';
 
 class CartProductsCard extends StatefulWidget {
-  final Product product;
+  final CartProduct product;
   const CartProductsCard({Key? key, required this.product}) : super(key: key);
 
   @override
-  _CartProductsCardState createState() => _CartProductsCardState(product);
+  CartProductsCardState createState() => CartProductsCardState();
 }
 
-class _CartProductsCardState extends State<CartProductsCard> {
-  final Product product;
+class CartProductsCardState extends State<CartProductsCard> {
   static const sizedBoxHeiht = 12.0;
-
-  _CartProductsCardState(this.product);
+  late CartProduct product = widget.product;
+  late int quantity = widget.product.quantity;
+  late String currency = widget.product.price.split(' ')[0];
+  late double originalPrice = double.parse(widget.product.price.split(' ')[1]);
+  late double price =
+      double.parse(widget.product.price.split(' ')[1]) * quantity;
   @override
   Widget build(BuildContext context) {
-    final imageHeight = height(context) * 0.175;
-    final imageWidth = width(context) * 0.18;
+    final imageHeight = height(context) * 0.18;
+    final containerHeight = height(context) * 0.22;
+    final padding = height(context) * 0.02;
     return Column(
       children: [
         Container(
-          width: width(context),
-          height: height(context) * 0.20,
+          height: containerHeight,
           decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(.8),
-                  blurRadius: 8.0,
-                  spreadRadius: 0.0,
-                  offset: const Offset(
-                    5.0,
-                    5.0,
-                  ),
-                )
-              ],
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.0),
-              border: Border.all(color: Colors.black.withOpacity(0.6), width: 0.5)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(.8),
+                blurRadius: 8.0,
+                spreadRadius: 0.0,
+                offset: const Offset(
+                  5.0,
+                  5.0,
+                ),
+              )
+            ],
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(padding),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Column(
                     children: [
                       CachedNetworkImage(
-                          imageUrl: product.imageUrl,
+                          imageUrl: widget.product.imageUrl,
                           placeholder: (context, url) =>
                               const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
-                          width: imageWidth,
                           height: imageHeight,
                           fit: BoxFit.fill),
                     ],
@@ -67,38 +70,38 @@ class _CartProductsCardState extends State<CartProductsCard> {
                 ),
                 const SizedBox(height: sizedBoxHeiht),
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        product.name,
-                        style: TextStyle(
-                          fontSize: 14.0 * aspectRatioConstant(context),
+                        widget.product.name,
+                        style: const TextStyle(
+                          fontSize: 14.0,
                           fontFamily: 'Roboto',
-                          color: const Color(0xFF212121),
+                          color: ColorConstants.textPrimaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: sizedBoxHeiht),
                       Text(
-                        product.description,
+                        widget.product.description,
                         maxLines: 3,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12.0 * aspectRatioConstant(context),
+                        style: const TextStyle(
+                          fontSize: 12.0,
                           fontFamily: 'Roboto',
-                          color: const Color(0xFF212121),
+                          color: ColorConstants.textPrimaryColor,
                         ),
                       ),
                       const Spacer(),
                       Text(
-                        product.price,
+                        "$currency $price",
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 12.0 * aspectRatioConstant(context),
+                        style: const TextStyle(
+                          fontSize: 16.0,
                           fontFamily: 'Roboto',
-                          color: const Color(0xFF212121),
+                          color: ColorConstants.textPrimaryColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -107,11 +110,19 @@ class _CartProductsCardState extends State<CartProductsCard> {
                 ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  children: const [
-                    DeleteFromCartButton(),
-                    Spacer(),
+                  children: [
+                    RemoveFromCartButton(
+                      product: product,
+                    ),
+                    const Spacer(),
                     IncrementOrDecrementWidget(
-                      quantity: 1,
+                      quantity: quantity,
+                      onValueChangeCallback: (quantity) {
+                        setState(() {
+                          price = originalPrice * quantity;
+                          this.quantity = quantity;
+                        });
+                      },
                     ),
                   ],
                 )

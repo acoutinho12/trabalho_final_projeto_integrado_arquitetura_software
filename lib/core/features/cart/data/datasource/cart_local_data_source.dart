@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:injectable/injectable.dart';
-import 'package:ollen/features/home/data/models/product_model.dart';
+import 'package:ollen/core/features/cart/data/model/cart_product_model.dart';
+import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class CartLocalDataSource {
-  Future<ProductsModel> getCartProducts();
-  Future<void> cacheCart(ProductModel product);
+  Future<CartProductsModel> getCartProducts();
+  Future<void> cacheCart(CartProductModel product);
+  Future<CartProductsModel> removeFromCart(CartProductModel product);
 }
 
 const cachedCart = 'CACHED_CART';
@@ -17,30 +19,31 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
   CartLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<ProductsModel> getCartProducts() async {
-    ProductsModel productsToCache = _getProductsToCache();
+  Future<CartProductsModel> getCartProducts() async {
+    CartProductsModel productsToCache = _getProductsToCache();
     return productsToCache;
   }
 
   @override
-  Future<void> cacheCart(ProductModel product) async {
-    ProductsModel productsToCache = _getProductsToCache();
+  Future<void> cacheCart(CartProductModel product) async {
+    CartProductsModel productsToCache = _getProductsToCache();
     productsToCache.add(product);
     _cacheProduct(product, productsToCache);
   }
 
-  ProductsModel _getProductsToCache() {
+  CartProductsModel _getProductsToCache() {
     final jsonString = sharedPreferences.getString(cachedCart);
-    ProductsModel productsToCache = [];
+    CartProductsModel productsToCache = [];
     if (jsonString != null) {
-      productsToCache = ProductModel.productsFromJson(jsonString);
+      productsToCache = CartProductModel.cartProductsFromJson(jsonString);
       return productsToCache;
     } else {
       return [];
     }
   }
 
-  void _cacheProduct(ProductModel product, ProductsModel productsToCache) {
+  void _cacheProduct(
+      CartProductModel product, CartProductsModel productsToCache) {
     String jsonProducts = "[";
     productsToCache.asMap().forEach((index, product) {
       jsonProducts = "$jsonProducts${json.encode(product.toJson())}";
@@ -52,5 +55,16 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
       cachedCart,
       jsonProducts,
     );
+  }
+
+  @override
+  Future<CartProductsModel> removeFromCart(CartProductModel product) async {
+    CartProductsModel productsToCache = _getProductsToCache();
+    productsToCache.removeWhere((p) => product.id == p.id);
+    sharedPreferences.setString(
+      cachedCart,
+      json.encode(productsToCache),
+    );
+    return productsToCache;
   }
 }
