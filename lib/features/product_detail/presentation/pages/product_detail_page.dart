@@ -9,17 +9,18 @@ import 'package:ollen/injection.dart';
 class ProductDetailPage extends StatelessWidget {
   final Product product;
   final SafeAreaProps safeAreaProps = const SafeAreaProps(bottom: false);
-  const ProductDetailPage({Key? key, required this.product}) : super(key: key);
+  final CartBloc cartBloc = getIt<CartBloc>();
+  ProductDetailPage({Key? key, required this.product}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CartBloc>(
-      create: (context) => getIt<CartBloc>(),
+      create: (context) => cartBloc,
       child: DefaultScaffold(
           safeAreaProps: safeAreaProps,
           appBarTitle: product.name,
           withActions: true,
-          child: ProductDetailCard(product: product)),
+          child: ProductDetailCard(product: product, cartBloc: cartBloc)),
     );
   }
 }

@@ -4,18 +4,15 @@ import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
-import 'package:ollen/injection.dart';
 
 import '../../../../widgets/increment_or_decrement_widget.dart';
 import 'remove_from_cart_button.dart';
 
-typedef OnCartPriceChange = void Function(double price);
-
 class CartProductsCard extends StatefulWidget {
   final CartProduct product;
-  final OnCartPriceChange onCartPriceChangeduct;
+  final CartBloc cartBloc;
   const CartProductsCard(
-      {Key? key, required this.product, required this.onCartPriceChangeduct})
+      {Key? key, required this.product, required this.cartBloc})
       : super(key: key);
 
   @override
@@ -42,10 +39,9 @@ class CartProductsCardState extends State<CartProductsCard> {
           imageUrl: product.imageUrl,
           price: product.price,
           quantity: quantity);
-      getIt<CartBloc>()
-          .add(CartEvent.changeProductQuantity(product: newProduct));
-      widget.onCartPriceChangeduct(price);
-      getIt<CartBloc>().add(const CartEvent.getCartQuantity());
+      widget.cartBloc.add(CartEvent.changeProductQuantity(product: newProduct));
+      widget.cartBloc.add(const CartEvent.getCartQuantity());
+      widget.cartBloc.add(const CartEvent.getTotalPrice());
     });
   }
 
@@ -138,8 +134,7 @@ class CartProductsCardState extends State<CartProductsCard> {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     RemoveFromCartButton(
-                      product: product,
-                    ),
+                        product: product, cartBloc: widget.cartBloc),
                     const Spacer(),
                     IncrementOrDecrementWidget(
                       quantity: quantity,

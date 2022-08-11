@@ -9,6 +9,7 @@ import 'package:ollen/core/features/cart/domain/usecases/add_cart_product.dart';
 import 'package:ollen/core/features/cart/domain/usecases/change_product_cart_quantity.dart';
 import 'package:ollen/core/features/cart/domain/usecases/get_cart_products.dart';
 import 'package:ollen/core/features/cart/domain/usecases/get_quantity_products_cart.dart';
+import 'package:ollen/core/features/cart/domain/usecases/get_total_price.dart';
 import 'package:ollen/core/features/cart/domain/usecases/remove_from_cart.dart';
 import 'package:ollen/core/usecases/usecase.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
@@ -24,8 +25,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final RemoveFromCart _removeFromCart;
   final ChangeProductCartQuantity _changeProductCartQuantity;
   final GetQuantityCartProducts _getQuantityCartProducts;
-  CartBloc(this._getCartProducts, this._setCartProducts, this._removeFromCart,
-      this._changeProductCartQuantity, this._getQuantityCartProducts)
+  final GetTotalPrice _getTotalPrice;
+  CartBloc(
+      this._getCartProducts,
+      this._setCartProducts,
+      this._removeFromCart,
+      this._changeProductCartQuantity,
+      this._getQuantityCartProducts,
+      this._getTotalPrice)
       : super(const CartState.initial());
 
   @override
@@ -71,6 +78,13 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         yield quantityOrFail.fold(
             (l) => const CartState.cartQuantity(quantity: "0"),
             (quantity) => CartState.cartQuantity(quantity: quantity));
+      },
+      getTotalPrice: () async* {
+        yield const CartState.loading();
+        final totalPriceOrFail = await _getTotalPrice(NoParams());
+        yield totalPriceOrFail.fold(
+            (l) => const CartState.totalPrice(totalPrice: "N/A"),
+            (totalPrice) => CartState.totalPrice(totalPrice: totalPrice));
       },
     );
   }

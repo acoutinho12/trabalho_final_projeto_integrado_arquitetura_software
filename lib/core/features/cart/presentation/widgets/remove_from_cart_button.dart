@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
-import 'package:ollen/injection.dart';
 
 class RemoveFromCartButton extends StatefulWidget {
   final CartProduct product;
-  const RemoveFromCartButton({Key? key, required this.product})
+  final CartBloc cartBloc;
+  const RemoveFromCartButton(
+      {Key? key, required this.product, required this.cartBloc})
       : super(key: key);
 
   @override
@@ -48,15 +49,16 @@ class _RemoveFromCartButtonState extends State<RemoveFromCartButton> {
 
   void _removeFromCart() {
     Navigator.pop(context, 'OK');
-    getIt<CartBloc>().add(CartEvent.removeFromCartProduct(product: product));
-    getIt<CartBloc>().add(const CartEvent.getCartQuantity());
-    getIt<CartBloc>().add(const CartEvent.getAllProducts());
+    widget.cartBloc.add(CartEvent.removeFromCartProduct(product: product));
+    widget.cartBloc.add(const CartEvent.getCartQuantity());
+    widget.cartBloc.add(const CartEvent.getAllProducts());
+    widget.cartBloc.add(const CartEvent.getTotalPrice());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartBloc, CartState>(
-      bloc: getIt<CartBloc>(),
+      bloc: widget.cartBloc,
       builder: (context, state) {
         return InkWell(
           onTap: _showMyDialog,

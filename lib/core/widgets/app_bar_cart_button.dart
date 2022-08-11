@@ -9,13 +9,15 @@ import 'package:ollen/injection.dart';
 import '../utils/colors.dart';
 
 class AppBarCartButton extends StatefulWidget {
-  const AppBarCartButton({Key? key}) : super(key: key);
+  final CartBloc? cartBloc;
+  const AppBarCartButton({Key? key, this.cartBloc}) : super(key: key);
 
   @override
   State<AppBarCartButton> createState() => _AppBarCartButtonState();
 }
 
 class _AppBarCartButtonState extends State<AppBarCartButton> {
+  final CartBloc cartBloc = getIt<CartBloc>();
   String quantity = "";
   final Icon shoppingCartIcon = const Icon(
     Icons.shopping_cart,
@@ -24,8 +26,8 @@ class _AppBarCartButtonState extends State<AppBarCartButton> {
   @override
   void initState() {
     super.initState();
-    getIt.resetLazySingleton<CartBloc>(instance: getIt<CartBloc>());
-    getIt<CartBloc>().add(const CartEvent.getCartQuantity());
+    getIt.resetLazySingleton<CartBloc>(instance: widget.cartBloc ?? cartBloc);
+    (widget.cartBloc ?? cartBloc).add(const CartEvent.getCartQuantity());
   }
 
   void _setQuantity(q) {
@@ -37,7 +39,7 @@ class _AppBarCartButtonState extends State<AppBarCartButton> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<CartBloc, CartState>(
-        bloc: getIt<CartBloc>(),
+        bloc: widget.cartBloc ?? cartBloc,
         listener: (context, state) =>
             {state.whenOrNull(cartQuantity: _setQuantity)},
         child: IconButton(

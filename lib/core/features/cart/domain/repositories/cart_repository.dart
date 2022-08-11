@@ -9,5 +9,6 @@ abstract class CartRepository {
   Future<Either<Failure, CartProducts>> removeFromCart(
       CartProductModel product);
   Future<Either<Failure, void>> changeProductQuantity(CartProductModel product);
-  Future<Either<Failure,String>> getTotalProductsQuantityOnCart();
+  Future<Either<Failure, String>> getTotalProductsQuantityOnCart();
+  Future<Either<Failure, String>> getTotalPrice();
 }

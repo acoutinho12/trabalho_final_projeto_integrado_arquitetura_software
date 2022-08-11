@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
-      appBarTitle: '',
+      appBarTitle: 'Øllen',
       withActions: true,
       child: BlocBuilder<HomeBloc, HomeState>(
         bloc: getIt<HomeBloc>(),

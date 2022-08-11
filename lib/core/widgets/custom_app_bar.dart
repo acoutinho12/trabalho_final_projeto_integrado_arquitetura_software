@@ -8,7 +8,9 @@ import 'package:ollen/injection.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool withActions;
-  const CustomAppBar({Key? key, this.title = "", this.withActions = false})
+  final CartBloc? cartBloc;
+  const CustomAppBar(
+      {Key? key, this.title = "", this.withActions = false, this.cartBloc})
       : super(key: key);
 
   @override
@@ -17,7 +19,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<CartBloc>(
-      create: (context) => getIt<CartBloc>(),
+      create: (context) => cartBloc ?? getIt<CartBloc>(),
       child: AppBar(
         iconTheme: const IconThemeData(
           color: ColorConstants.primaryColor,
@@ -30,7 +32,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         backgroundColor: ColorConstants.appColor,
         actions: withActions
             ? <Widget>[
-                const AppBarCartButton(),
+                AppBarCartButton(cartBloc: cartBloc),
               ]
             : [],
       ),

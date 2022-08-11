@@ -1,6 +1,8 @@
 import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
 import 'package:ollen/core/widgets/increment_or_decrement_widget.dart';
@@ -10,7 +12,10 @@ import 'package:ollen/features/product_detail/presentation/widgets/add_to_cart.d
 
 class ProductDetailCard extends StatefulWidget {
   final Product product;
-  const ProductDetailCard({Key? key, required this.product}) : super(key: key);
+  final CartBloc cartBloc;
+  const ProductDetailCard(
+      {Key? key, required this.product, required this.cartBloc})
+      : super(key: key);
 
   @override
   State<ProductDetailCard> createState() => _ProductDetailCardState();
@@ -32,8 +37,7 @@ class _ProductDetailCardState extends State<ProductDetailCard> {
             flex: 4,
             child: CachedNetworkImage(
                 imageUrl: widget.product.imageUrl,
-                placeholder: (context, url) =>
-                    const Icon(Icons.photo),
+                placeholder: (context, url) => const Icon(Icons.photo),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
                 fit: BoxFit.fill),
           ),
@@ -129,6 +133,7 @@ class _ProductDetailCardState extends State<ProductDetailCard> {
                     AddToCart(
                       product: product,
                       quantity: quantity,
+                      cartBloc: widget.cartBloc,
                     ),
                   ],
                 ),

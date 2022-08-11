@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/widgets/custom_app_bar.dart';
 
@@ -20,22 +21,22 @@ class DefaultScaffold extends StatelessWidget {
   final String appBarTitle;
   final bool withActions;
   final SafeAreaProps? safeAreaProps;
+  final CartBloc? cartBloc;
   const DefaultScaffold(
       {Key? key,
       this.safeAreaProps,
       required this.appBarTitle,
       required this.withActions,
       required this.child,
-      this.bottomNavigationBar})
+      this.bottomNavigationBar,
+      this.cartBloc})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar(
-          title: appBarTitle,
-          withActions: withActions,
-        ),
+            title: appBarTitle, withActions: withActions, cartBloc: cartBloc),
         backgroundColor: ColorConstants.grayColor,
         body: SafeArea(
           left: safeAreaProps?.left ?? true,

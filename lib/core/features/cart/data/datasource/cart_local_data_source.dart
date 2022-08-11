@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:injectable/injectable.dart';
 import 'package:ollen/core/features/cart/data/model/cart_product_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +10,7 @@ abstract class CartLocalDataSource {
   Future<CartProductsModel> removeFromCart(CartProductModel product);
   Future<void> changeProductQuantity(CartProductModel product);
   Future<String> getTotalProductsQuantityOnCart();
+  Future<String> getTotalPrice();
 }
 
 const cachedCart = 'CACHED_CART';
@@ -64,6 +66,22 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
         ? productsToCache.map((item) => item.quantity).reduce((a, b) => a + b)
         : 0;
     return total.toString();
+  }
+
+  @override
+  Future<String> getTotalPrice() async {
+    CartProductsModel productsToCache = _getProductsToCache();
+    final double total = productsToCache.isNotEmpty
+        ? productsToCache
+            .map((item) => (item.quantity.toDouble() *
+                double.parse(item.price.split(' ')[1])))
+            .reduce((a, b) => a + b)
+        : 0;
+    final String totalPrice = total.toString();
+    final String currency = productsToCache.isNotEmpty
+        ? productsToCache[0].price.split(' ')[0]
+        : "R\$";
+    return "$currency $totalPrice";
   }
 
   /////////////////////////////// Private ///////////////////////////////////////

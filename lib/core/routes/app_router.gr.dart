@@ -23,13 +23,14 @@ class _$AppRouter extends RootStackRouter {
     },
     CartRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const CartPage());
+          routeData: routeData, child: const CartPage(), maintainState: false);
     },
     ProductDetailRoute.name: (routeData) {
       final args = routeData.argsAs<ProductDetailRouteArgs>();
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: ProductDetailPage(key: args.key, product: args.product));
+          child: ProductDetailPage(key: args.key, product: args.product),
+          maintainState: false);
     }
   };
 

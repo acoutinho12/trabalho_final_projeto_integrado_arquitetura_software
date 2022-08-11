@@ -17,8 +17,9 @@ class CartPage extends StatefulWidget {
 
 class CartPageState extends State<CartPage> {
   CartProducts _cartProducts = [];
+  final CartBloc cartBloc = getIt<CartBloc>();
   bool _isLoading = true;
-
+  final SafeAreaProps safeAreaProps = const SafeAreaProps(bottom: false);
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,8 @@ class CartPageState extends State<CartPage> {
   }
 
   void _getAllProducts() {
-    getIt<CartBloc>().add(const CartEvent.getAllProducts());
+    cartBloc.add(const CartEvent.getAllProducts());
+    cartBloc.add(const CartEvent.getTotalPrice());
   }
 
   void _setCartProducts(products) {
@@ -43,34 +45,28 @@ class CartPageState extends State<CartPage> {
   }
 
   @override
-  void dispose() {
-    getIt.resetLazySingleton<CartBloc>(instance: getIt<CartBloc>());
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
+      safeAreaProps: safeAreaProps,
       appBarTitle: 'Carrinho',
       withActions: true,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: BlocListener<CartBloc, CartState>(
-            bloc: getIt<CartBloc>(),
-            listener: (context, state) {
-              state.whenOrNull(
-                  loaded: (products) => _setCartProducts(products),
-                  loading: () => _setLoading);
-            },
-            child: _isLoading
-                ? const CartLoadingWidget()
-                : (_cartProducts.isNotEmpty
-                    ? CartWidget(
-                        products: _cartProducts, onRefresh: _getAllProducts)
-                    : EmptyPage(
-                        action: _getAllProducts,
-                      ))),
-      ),
+      child: BlocListener<CartBloc, CartState>(
+          bloc: cartBloc,
+          listener: (context, state) {
+            state.whenOrNull(
+                loaded: (products) => _setCartProducts(products),
+                loading: () => _setLoading);
+          },
+          child: _isLoading
+              ? const CartLoadingWidget()
+              : (_cartProducts.isNotEmpty
+                  ? CartWidget(
+                      products: _cartProducts,
+                      onRefresh: _getAllProducts,
+                      cartBloc: cartBloc)
+                  : EmptyPage(
+                      action: _getAllProducts,
+                    ))),
     );
   }
 }

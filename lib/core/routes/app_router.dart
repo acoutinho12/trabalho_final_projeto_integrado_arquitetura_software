@@ -7,12 +7,14 @@ import 'package:ollen/features/product_detail/presentation/pages/product_detail_
 
 part 'app_router.gr.dart';
 
+const maintainState = false;
+
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: AppPage, initial: true, maintainState: false),
-    AutoRoute(page: CartPage),
-    AutoRoute(page: ProductDetailPage),
+    AutoRoute(page: AppPage, initial: true, maintainState: maintainState),
+    AutoRoute(page: CartPage, maintainState: maintainState),
+    AutoRoute(page: ProductDetailPage, maintainState: maintainState),
   ],
 )
 // extend the generated private router

@@ -1,11 +1,11 @@
+import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:ollen/core/error/exceptions.dart';
+import 'package:ollen/core/error/failures.dart';
 import 'package:ollen/core/features/cart/data/datasource/cart_local_data_source.dart';
 import 'package:ollen/core/features/cart/data/model/cart_product_model.dart';
 import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/domain/repositories/cart_repository.dart';
-import 'package:ollen/core/error/failures.dart';
-import 'package:dartz/dartz.dart';
 
 @LazySingleton(as: CartRepository)
 class CartRepositoryImpl implements CartRepository {
@@ -59,6 +59,16 @@ class CartRepositoryImpl implements CartRepository {
   Future<Either<Failure, String>> getTotalProductsQuantityOnCart() async {
     try {
       final total = await remoteDataSource.getTotalProductsQuantityOnCart();
+      return Right(total);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getTotalPrice() async {
+    try {
+      final total = await remoteDataSource.getTotalPrice();
       return Right(total);
     } on ServerException {
       return Left(ServerFailure());
