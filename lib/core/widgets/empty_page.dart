@@ -6,7 +6,9 @@ void onAction() {}
 
 class EmptyPage extends StatefulWidget {
   final void Function()? action;
-  const EmptyPage({Key? key, this.action = onAction}) : super(key: key);
+  final String message;
+  const EmptyPage({Key? key, this.action = onAction, required this.message})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -25,7 +27,7 @@ class EmptyPageState extends State<EmptyPage> {
           child: Column(
             children: [
               Lottie.network(
-                  'https://assets9.lottiefiles.com/packages/lf20_v4d0iG.json',
+                  'https://assets4.lottiefiles.com/packages/lf20_hdReMa.json',
                   repeat: true,
                   animate: true,
                   reverse: true,
@@ -35,7 +37,7 @@ class EmptyPageState extends State<EmptyPage> {
               const SizedBox(
                 height: 12,
               ),
-              const Text("Nenhum produto encontrado")
+              Text(widget.message)
             ],
           ),
         ),

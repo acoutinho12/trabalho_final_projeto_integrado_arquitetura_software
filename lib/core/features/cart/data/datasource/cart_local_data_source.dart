@@ -77,7 +77,7 @@ class CartLocalDataSourceImpl implements CartLocalDataSource {
                 double.parse(item.price.split(' ')[1])))
             .reduce((a, b) => a + b)
         : 0;
-    final String totalPrice = total.toString();
+    final String totalPrice = total.toStringAsFixed(2);
     final String currency = productsToCache.isNotEmpty
         ? productsToCache[0].price.split(' ')[0]
         : "R\$";

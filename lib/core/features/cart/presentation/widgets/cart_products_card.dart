@@ -25,12 +25,13 @@ class CartProductsCardState extends State<CartProductsCard> {
   late int quantity = widget.product.quantity;
   late String currency = widget.product.price.split(' ')[0];
   late double originalPrice = double.parse(widget.product.price.split(' ')[1]);
-  late double price =
-      double.parse(widget.product.price.split(' ')[1]) * quantity;
+  late String price =
+      (double.parse(widget.product.price.split(' ')[1]) * quantity)
+          .toStringAsFixed(2);
 
   void _changeProductCartQuantity(int quantity) {
     setState(() {
-      price = originalPrice * quantity;
+      price = (originalPrice * quantity).toStringAsFixed(2);
       this.quantity = quantity;
       CartProduct newProduct = CartProduct(
           id: product.id,

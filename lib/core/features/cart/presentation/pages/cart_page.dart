@@ -20,6 +20,7 @@ class CartPageState extends State<CartPage> {
   final CartBloc cartBloc = getIt<CartBloc>();
   bool _isLoading = true;
   final SafeAreaProps safeAreaProps = const SafeAreaProps(bottom: false);
+  final String message = "Nenhum produto no carrinho";
   @override
   void initState() {
     super.initState();
@@ -66,6 +67,7 @@ class CartPageState extends State<CartPage> {
                       cartBloc: cartBloc)
                   : EmptyPage(
                       action: _getAllProducts,
+                      message: message,
                     ))),
     );
   }

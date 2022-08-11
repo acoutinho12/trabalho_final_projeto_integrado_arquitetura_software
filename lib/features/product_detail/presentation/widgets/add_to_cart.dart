@@ -21,10 +21,18 @@ class AddToCart extends StatefulWidget {
 
 class _AddToCartState extends State<AddToCart> {
   void _addToCart() {
+    final int quantity = widget.quantity;
+    final String productName = widget.product.name;
+    final SnackBar snackBar = SnackBar(
+      content: Text(
+          "$quantity $productName Adicionado${quantity > 1 ? 's' : ''} ao carrinho"),
+    );
     setState(() {
       widget.cartBloc.add(CartEvent.addToCartProduct(
           product: widget.product, quantity: widget.quantity));
       widget.cartBloc.add(const CartEvent.getCartQuantity());
+      ScaffoldMessenger.of(context).removeCurrentSnackBar();
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     });
   }
 
@@ -34,8 +42,9 @@ class _AddToCartState extends State<AddToCart> {
       bloc: widget.cartBloc,
       builder: (context, state) {
         return Container(
-          width: 100,
-          height: 60,
+          width: 120,
+          height: 55,
+          padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
               color: ColorConstants.primaryColor,
               borderRadius: BorderRadius.circular(8.0)),
@@ -46,15 +55,25 @@ class _AddToCartState extends State<AddToCart> {
                   onTap: _addToCart,
                   child: SizedBox(
                     child: Ink(
-                      child: const Center(
-                        child: Text(
-                          "Adicionar",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12.0,
-                            fontFamily: 'Roboto',
-                            fontWeight: FontWeight.bold,
-                          ),
+                      child: Center(
+                        child: Row(
+                          children: const [
+                            Icon(
+                              Icons.shopping_cart_outlined,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            SizedBox(width: 8.0),
+                            Text(
+                              "Adicionar",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 12.0,
+                                fontFamily: 'Roboto',
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ollen/core/utils/colors.dart';
+import 'package:ollen/core/widgets/empty_page.dart';
 import 'package:ollen/features/home/presentation/pages/home_page.dart';
 
 class BottomTabWidget extends StatefulWidget {
@@ -13,8 +14,14 @@ class _BottomTabWidgetState extends State<BottomTabWidget> {
   int _selectedIndex = 0;
   static final List<Widget> _widgetOptions = <Widget>[
     const HomePage(),
-    const HomePage(),
-    const HomePage(),
+    EmptyPage(
+      action: () {},
+      message: "",
+    ),
+    EmptyPage(
+      action: () {},
+      message: "",
+    ),
   ];
 
   static const _items = <BottomNavigationBarItem>[
