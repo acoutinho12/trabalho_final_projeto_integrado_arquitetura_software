@@ -13,11 +13,11 @@ import 'package:ollen/core/features/cart/domain/usecases/remove_from_cart.dart';
 import 'package:ollen/core/usecases/usecase.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 
+part 'cart_bloc.freezed.dart';
 part 'cart_event.dart';
 part 'cart_state.dart';
-part 'cart_bloc.freezed.dart';
 
-@injectable
+@lazySingleton
 class CartBloc extends Bloc<CartEvent, CartState> {
   final GetCartProducts _getCartProducts;
   final AddToCartProducts _setCartProducts;
@@ -38,9 +38,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         final productsOrFail = await _getCartProducts(NoParams());
         yield productsOrFail.fold(
             (failure) => CartState.error(_failureToMessage(failure)),
-            (products) => products.isNotEmpty
-                ? CartState.loaded(products: products)
-                : const CartState.error(serverFailureMessage));
+            (products) => CartState.loaded(products: products));
       },
       addToCartProduct: (Product product, int quantity) async* {
         yield const CartState.loading();
@@ -68,6 +66,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             ChangeProductCartQuantityParams(product: cartProduct));
       },
       getCartQuantity: () async* {
+        yield const CartState.loading();
         final quantityOrFail = await _getQuantityCartProducts(NoParams());
         yield quantityOrFail.fold(
             (l) => const CartState.cartQuantity(quantity: "0"),

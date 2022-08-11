@@ -6,31 +6,42 @@ import 'package:ollen/features/home/presentation/bloc/home_bloc.dart';
 import 'package:ollen/features/home/presentation/widgets/widgets.dart';
 import 'package:ollen/injection.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    getIt.resetLazySingleton<HomeBloc>(instance: getIt<HomeBloc>());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<HomeBloc>(),
-      child: DefaultScaffold(
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            if (state is Loading) {
-              return const LoadingWidget();
-            } else if (state is Loaded) {
-              return HomeWidget(products: state.products);
-            } else if (state is Error) {
-              return Text(
-                state.message,
-              );
-            } else {
-              return const Text(
-                serverFailureMessage,
-              );
-            }
-          },
-        ),
+    return DefaultScaffold(
+      appBarTitle: '',
+      withActions: true,
+      child: BlocBuilder<HomeBloc, HomeState>(
+        bloc: getIt<HomeBloc>(),
+        builder: (context, state) {
+          if (state is Loading) {
+            return const LoadingWidget();
+          } else if (state is Loaded) {
+            return HomeWidget(products: state.products);
+          } else if (state is Error) {
+            return Text(
+              state.message,
+            );
+          } else {
+            return const Text(
+              serverFailureMessage,
+            );
+          }
+        },
       ),
     );
   }

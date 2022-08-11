@@ -11,11 +11,13 @@ class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    void _onTap() {
+      AutoRouter.of(context).push(ProductDetailRoute(product: product));
+    }
+
     const sizedBoxHeiht = 12.0;
     return GestureDetector(
-      onTap: () {
-        AutoRouter.of(context).push(ProductDetailRoute(product: product));
-      },
+      onTap: _onTap,
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -39,8 +41,7 @@ class ProductCard extends StatelessWidget {
               flex: 2,
               child: CachedNetworkImage(
                   imageUrl: product.imageUrl,
-                  placeholder: (context, url) =>
-                      const Icon(Icons.photo),
+                  placeholder: (context, url) => const Icon(Icons.photo),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                   fit: BoxFit.fill),
             ),

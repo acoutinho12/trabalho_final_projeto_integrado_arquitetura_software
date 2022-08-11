@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ollen/core/utils/media_query.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/home/presentation/bloc/bloc.dart';
 import 'package:ollen/features/home/presentation/widgets/widgets.dart';
+import 'package:ollen/injection.dart';
 
 class HomeWidget extends StatelessWidget {
   const HomeWidget({Key? key, required this.products}) : super(key: key);
   final Products products;
-  Future<void> _onRefresh(context) async {
-    context.read<HomeBloc>().add(GetAllProducts());
+  Future<void> _onRefresh() async {
+    getIt<HomeBloc>().add(GetAllProducts());
   }
 
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () => _onRefresh(context),
+      onRefresh: () => _onRefresh(),
       child: CustomScrollView(
         primary: false,
         slivers: <Widget>[

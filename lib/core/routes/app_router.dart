@@ -4,12 +4,13 @@ import 'package:ollen/core/features/app/presentation/app_page.dart';
 import 'package:ollen/core/features/cart/presentation/pages/cart_page.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/product_detail/presentation/pages/product_detail_page.dart';
+
 part 'app_router.gr.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: AppPage, initial: true),
+    AutoRoute(page: AppPage, initial: true, maintainState: false),
     AutoRoute(page: CartPage),
     AutoRoute(page: ProductDetailPage),
   ],

@@ -4,7 +4,6 @@ import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/features/cart/presentation/widgets/cart_loading.dart';
 import 'package:ollen/core/features/cart/presentation/widgets/cart_widget.dart';
-import 'package:ollen/core/widgets/custom_app_bar.dart';
 import 'package:ollen/core/widgets/default_scaffold.dart';
 import 'package:ollen/core/widgets/empty_page.dart';
 import 'package:ollen/injection.dart';
@@ -17,47 +16,60 @@ class CartPage extends StatefulWidget {
 }
 
 class CartPageState extends State<CartPage> {
-  CartProducts cartProducts = [];
+  CartProducts _cartProducts = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _getAllProducts();
+  }
+
+  void _getAllProducts() {
+    getIt<CartBloc>().add(const CartEvent.getAllProducts());
+  }
+
+  void _setCartProducts(products) {
+    setState(() {
+      _cartProducts = products;
+      _isLoading = false;
+    });
+  }
+
+  void _setLoading() {
+    setState(() {
+      _isLoading = true;
+    });
+  }
+
+  @override
+  void dispose() {
+    getIt.resetLazySingleton<CartBloc>(instance: getIt<CartBloc>());
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
-      appBar: const CustomAppBar(
-        title: "Carrinho",
-        withActions: true,
-      ),
-      child: BlocProvider(
-        create: (context) => getIt<CartBloc>(),
-        child: SafeArea(
-            child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-            void action() {
-              context.read<CartBloc>().add(const CartEvent.getAllProducts());
-            }
-
-            return Container(
-                child: state.whenOrNull(
-              loaded: (products) {
-                cartProducts = products;
-                return Column(children: [
-                  Expanded(flex: 3, child: CartWidget(products: products)),
-                  const Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                        width: 300,
-                        height: 300,
-                      ))
-                ]);
-              },
-              error: (_) => EmptyPage(
-                action: action,
-              ),
-              loading: () => const CartLoadingWidget(),
-              removingFromCart: () => CartWidget(products: cartProducts),
-            ));
-          }),
-        )),
+      appBarTitle: 'Carrinho',
+      withActions: true,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: BlocListener<CartBloc, CartState>(
+            bloc: getIt<CartBloc>(),
+            listener: (context, state) {
+              state.whenOrNull(
+                  loaded: (products) => _setCartProducts(products),
+                  loading: () => _setLoading);
+            },
+            child: _isLoading
+                ? const CartLoadingWidget()
+                : (_cartProducts.isNotEmpty
+                    ? CartWidget(
+                        products: _cartProducts, onRefresh: _getAllProducts)
+                    : EmptyPage(
+                        action: _getAllProducts,
+                      ))),
       ),
     );
   }

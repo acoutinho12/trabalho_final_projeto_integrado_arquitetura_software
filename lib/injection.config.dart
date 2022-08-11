@@ -58,12 +58,12 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i13.GetProducts(get<_i5.ProductRepository>()));
   gh.lazySingleton<_i14.GetQuantityCartProducts>(
       () => _i14.GetQuantityCartProducts(get<_i9.CartRepository>()));
-  gh.factory<_i15.HomeBloc>(() => _i15.HomeBloc(get<_i13.GetProducts>()));
+  gh.lazySingleton<_i15.HomeBloc>(() => _i15.HomeBloc(get<_i13.GetProducts>()));
   gh.lazySingleton<_i16.RemoveFromCart>(
       () => _i16.RemoveFromCart(get<_i9.CartRepository>()));
   gh.lazySingleton<_i17.AddToCartProducts>(
       () => _i17.AddToCartProducts(get<_i9.CartRepository>()));
-  gh.factory<_i18.CartBloc>(() => _i18.CartBloc(
+  gh.lazySingleton<_i18.CartBloc>(() => _i18.CartBloc(
       get<_i12.GetCartProducts>(),
       get<_i17.AddToCartProducts>(),
       get<_i16.RemoveFromCart>(),

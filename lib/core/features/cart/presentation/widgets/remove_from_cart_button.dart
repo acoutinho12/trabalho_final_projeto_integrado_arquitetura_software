@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
+import 'package:ollen/injection.dart';
 
 class RemoveFromCartButton extends StatefulWidget {
   final CartProduct product;
@@ -47,14 +48,15 @@ class _RemoveFromCartButtonState extends State<RemoveFromCartButton> {
 
   void _removeFromCart() {
     Navigator.pop(context, 'OK');
-    context
-        .read<CartBloc>()
-        .add(CartEvent.removeFromCartProduct(product: product));
+    getIt<CartBloc>().add(CartEvent.removeFromCartProduct(product: product));
+    getIt<CartBloc>().add(const CartEvent.getCartQuantity());
+    getIt<CartBloc>().add(const CartEvent.getAllProducts());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CartBloc, CartState>(
+      bloc: getIt<CartBloc>(),
       builder: (context, state) {
         return InkWell(
           onTap: _showMyDialog,

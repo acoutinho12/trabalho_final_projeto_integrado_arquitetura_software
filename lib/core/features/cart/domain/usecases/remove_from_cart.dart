@@ -16,7 +16,6 @@ class RemoveFromCart implements UseCase<void, RemoveFromCartParams> {
 
   @override
   Future<Either<Failure, CartProducts>> call(RemoveFromCartParams params) async {
-    await Future.delayed(const Duration(milliseconds: 1000));
     return await repository.removeFromCart(params.product);
   }
 }

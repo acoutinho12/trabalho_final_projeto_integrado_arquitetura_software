@@ -1,13 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
+import 'package:ollen/injection.dart';
 
-import 'remove_from_cart_button.dart';
 import '../../../../widgets/increment_or_decrement_widget.dart';
+import 'remove_from_cart_button.dart';
 
 typedef OnCartPriceChange = void Function(double price);
 
@@ -42,11 +42,10 @@ class CartProductsCardState extends State<CartProductsCard> {
           imageUrl: product.imageUrl,
           price: product.price,
           quantity: quantity);
-      context
-          .read<CartBloc>()
+      getIt<CartBloc>()
           .add(CartEvent.changeProductQuantity(product: newProduct));
       widget.onCartPriceChangeduct(price);
-      context.read<CartBloc>().add(const CartEvent.getCartQuantity());
+      getIt<CartBloc>().add(const CartEvent.getCartQuantity());
     });
   }
 

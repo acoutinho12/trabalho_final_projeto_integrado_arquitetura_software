@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/routes/app_router.dart';
+import 'package:ollen/injection.dart';
 
 import '../utils/colors.dart';
 
@@ -22,31 +23,39 @@ class _AppBarCartButtonState extends State<AppBarCartButton> {
   );
   @override
   void initState() {
-    context.read<CartBloc>().add(const CartEvent.getCartQuantity());
     super.initState();
+    getIt.resetLazySingleton<CartBloc>(instance: getIt<CartBloc>());
+    getIt<CartBloc>().add(const CartEvent.getCartQuantity());
+  }
+
+  void _setQuantity(q) {
+    setState(() {
+      quantity = q;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-      return IconButton(
-        icon: Badge(
-          badgeContent: Text(
-            state.maybeWhen(
-                cartQuantity: (quantity) => quantity, orElse: () => "0"),
-            style: const TextStyle(fontSize: 12),
+    return BlocListener<CartBloc, CartState>(
+        bloc: getIt<CartBloc>(),
+        listener: (context, state) =>
+            {state.whenOrNull(cartQuantity: _setQuantity)},
+        child: IconButton(
+          icon: Badge(
+            badgeContent: Text(
+              quantity,
+              style: const TextStyle(fontSize: 12),
+            ),
+            child: const Icon(
+              Icons.shopping_cart,
+              color: ColorConstants.primaryColor,
+            ),
           ),
-          child: const Icon(
-            Icons.shopping_cart,
-            color: ColorConstants.primaryColor,
-          ),
-        ),
-        onPressed: () {
-          if (ModalRoute.of(context)?.settings.name != CartRoute.name) {
-            AutoRouter.of(context).pushNamed('/cart-page');
-          }
-        },
-      );
-    });
+          onPressed: () {
+            if (ModalRoute.of(context)?.settings.name != CartRoute.name) {
+              AutoRouter.of(context).pushNamed('/cart-page');
+            }
+          },
+        ));
   }
 }

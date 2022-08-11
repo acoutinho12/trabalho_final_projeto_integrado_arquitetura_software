@@ -11,7 +11,7 @@ import 'package:ollen/features/home/domain/usecases/get_products.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
-@injectable
+@lazySingleton
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final GetProducts _getProducts;
   HomeBloc(this._getProducts) : super(Loading());
