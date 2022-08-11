@@ -6,5 +6,8 @@ import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
 abstract class CartRepository {
   Future<Either<Failure, CartProducts>> getCartProducts();
   Future<Either<Failure, void>> addToCart(CartProductModel product);
-  Future<Either<Failure, CartProducts>> removeFromCart(CartProductModel product);
+  Future<Either<Failure, CartProducts>> removeFromCart(
+      CartProductModel product);
+  Future<Either<Failure, void>> changeProductQuantity(CartProductModel product);
+  Future<Either<Failure,String>> getTotalProductsQuantityOnCart();
 }

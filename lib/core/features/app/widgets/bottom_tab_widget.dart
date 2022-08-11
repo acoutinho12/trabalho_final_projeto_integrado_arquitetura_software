@@ -15,6 +15,7 @@ class _BottomTabWidgetState extends State<BottomTabWidget> {
   static const List<Widget> _widgetOptions = <Widget>[
     HomePage(),
     HomePage(),
+    HomePage(),
   ];
 
   void _onItemTapped(int index) {
@@ -41,12 +42,17 @@ class _BottomTabWidgetState extends State<BottomTabWidget> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favoritos',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Perfil',
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedLabelStyle: const TextStyle(fontSize: 12, fontFamily: 'Roboto', fontWeight: FontWeight.bold),
+        selectedLabelStyle: const TextStyle(
+            fontSize: 12, fontFamily: 'Roboto', fontWeight: FontWeight.bold),
         selectedItemColor: ColorConstants.primaryColor,
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,

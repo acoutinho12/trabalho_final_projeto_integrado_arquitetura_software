@@ -14,24 +14,22 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => getIt<HomeBloc>(),
       child: DefaultScaffold(
-        child: Expanded(
-          child: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              if (state is Loading) {
-                return const LoadingWidget();
-              } else if (state is Loaded) {
-                return HomeWidget(products: state.products);
-              } else if (state is Error) {
-                return Text(
-                  state.message,
-                );
-              } else {
-                return const Text(
-                  serverFailureMessage,
-                );
-              }
-            },
-          ),
+        child: BlocBuilder<HomeBloc, HomeState>(
+          builder: (context, state) {
+            if (state is Loading) {
+              return const LoadingWidget();
+            } else if (state is Loaded) {
+              return HomeWidget(products: state.products);
+            } else if (state is Error) {
+              return Text(
+                state.message,
+              );
+            } else {
+              return const Text(
+                serverFailureMessage,
+              );
+            }
+          },
         ),
       ),
     );

@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
-import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/media_query.dart';
 
-class CartLoadingWidget extends StatefulWidget {
+class CartLoadingWidget extends StatelessWidget {
   const CartLoadingWidget({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _CartLoadingWidget();
-  }
-}
-
-class _CartLoadingWidget extends State<CartLoadingWidget> {
-  @override
-  void initState() {
-    super.initState();
-    BlocProvider.of<CartBloc>(context).add(const CartEvent.getAllProducts());
-  }
 
   @override
   Widget build(BuildContext context) {

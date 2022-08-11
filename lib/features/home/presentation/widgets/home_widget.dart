@@ -9,7 +9,7 @@ class HomeWidget extends StatelessWidget {
   const HomeWidget({Key? key, required this.products}) : super(key: key);
   final Products products;
   Future<void> _onRefresh(context) async {
-    BlocProvider.of<HomeBloc>(context).add(GetAllProducts());
+    context.read<HomeBloc>().add(GetAllProducts());
   }
 
   @override

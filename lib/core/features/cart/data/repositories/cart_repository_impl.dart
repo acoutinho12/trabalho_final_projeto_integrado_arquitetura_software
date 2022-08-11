@@ -43,4 +43,25 @@ class CartRepositoryImpl implements CartRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> changeProductQuantity(
+      CartProductModel product) async {
+    try {
+      await remoteDataSource.changeProductQuantity(product);
+      return const Right(null);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> getTotalProductsQuantityOnCart() async {
+    try {
+      final total = await remoteDataSource.getTotalProductsQuantityOnCart();
+      return Right(total);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
 }

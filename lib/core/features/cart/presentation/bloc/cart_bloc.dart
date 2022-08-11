@@ -5,9 +5,11 @@ import 'package:ollen/core/error/failures.dart';
 import 'package:ollen/core/error/failures_messages.dart';
 import 'package:ollen/core/features/cart/data/model/cart_product_model.dart';
 import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
-import 'package:ollen/core/features/cart/domain/usecases.dart/get_cart_products.dart';
-import 'package:ollen/core/features/cart/domain/usecases.dart/add_cart_product.dart';
-import 'package:ollen/core/features/cart/domain/usecases.dart/remove_from_cart.dart';
+import 'package:ollen/core/features/cart/domain/usecases/add_cart_product.dart';
+import 'package:ollen/core/features/cart/domain/usecases/change_product_cart_quantity.dart';
+import 'package:ollen/core/features/cart/domain/usecases/get_cart_products.dart';
+import 'package:ollen/core/features/cart/domain/usecases/get_quantity_products_cart.dart';
+import 'package:ollen/core/features/cart/domain/usecases/remove_from_cart.dart';
 import 'package:ollen/core/usecases/usecase.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 
@@ -20,7 +22,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   final GetCartProducts _getCartProducts;
   final AddToCartProducts _setCartProducts;
   final RemoveFromCart _removeFromCart;
-  CartBloc(this._getCartProducts, this._setCartProducts, this._removeFromCart)
+  final ChangeProductCartQuantity _changeProductCartQuantity;
+  final GetQuantityCartProducts _getQuantityCartProducts;
+  CartBloc(this._getCartProducts, this._setCartProducts, this._removeFromCart,
+      this._changeProductCartQuantity, this._getQuantityCartProducts)
       : super(const CartState.initial());
 
   @override
@@ -48,12 +53,25 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         yield const CartState.removingFromCart();
         CartProductModel cartProduct =
             _convertCartProductToCartProductModel(product);
-        final removeOrFail = await _removeFromCart(RemoveFromCartParams(product: cartProduct));
+        final removeOrFail =
+            await _removeFromCart(RemoveFromCartParams(product: cartProduct));
         yield removeOrFail.fold(
             (failure) => CartState.error(_failureToMessage(failure)),
             (products) => products.isNotEmpty
                 ? CartState.loaded(products: products)
                 : const CartState.error(serverFailureMessage));
+      },
+      changeProductQuantity: (CartProduct product) async* {
+        CartProductModel cartProduct =
+            _convertCartProductToCartProductModel(product);
+        await _changeProductCartQuantity(
+            ChangeProductCartQuantityParams(product: cartProduct));
+      },
+      getCartQuantity: () async* {
+        final quantityOrFail = await _getQuantityCartProducts(NoParams());
+        yield quantityOrFail.fold(
+            (l) => const CartState.cartQuantity(quantity: "0"),
+            (quantity) => CartState.cartQuantity(quantity: quantity));
       },
     );
   }

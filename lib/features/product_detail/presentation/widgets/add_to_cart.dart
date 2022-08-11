@@ -18,7 +18,8 @@ class _AddToCartState extends State<AddToCart> {
   late Product product = widget.product;
   late int quantity = widget.quantity;
   void _addToCart() {
-    BlocProvider.of<CartBloc>(context)
+    context
+        .read<CartBloc>()
         .add(CartEvent.addToCartProduct(product: product, quantity: quantity));
   }
 

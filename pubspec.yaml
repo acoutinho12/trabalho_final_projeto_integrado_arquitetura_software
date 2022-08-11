@@ -45,6 +45,7 @@ dependencies:
   lottie: ^1.4.1
   auto_route: ^4.2.1
   shared_preferences: ^2.0.15
+  badges: ^2.0.3
 
 dev_dependencies:
   flutter_test:

@@ -1,15 +1,22 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ollen/core/features/cart/domain/entities/cart_product.dart';
+import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
 
 import 'remove_from_cart_button.dart';
 import '../../../../widgets/increment_or_decrement_widget.dart';
 
+typedef OnCartPriceChange = void Function(double price);
+
 class CartProductsCard extends StatefulWidget {
   final CartProduct product;
-  const CartProductsCard({Key? key, required this.product}) : super(key: key);
+  final OnCartPriceChange onCartPriceChangeduct;
+  const CartProductsCard(
+      {Key? key, required this.product, required this.onCartPriceChangeduct})
+      : super(key: key);
 
   @override
   CartProductsCardState createState() => CartProductsCardState();
@@ -23,6 +30,26 @@ class CartProductsCardState extends State<CartProductsCard> {
   late double originalPrice = double.parse(widget.product.price.split(' ')[1]);
   late double price =
       double.parse(widget.product.price.split(' ')[1]) * quantity;
+
+  void _changeProductCartQuantity(int quantity) {
+    setState(() {
+      price = originalPrice * quantity;
+      this.quantity = quantity;
+      CartProduct newProduct = CartProduct(
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          imageUrl: product.imageUrl,
+          price: product.price,
+          quantity: quantity);
+      context
+          .read<CartBloc>()
+          .add(CartEvent.changeProductQuantity(product: newProduct));
+      widget.onCartPriceChangeduct(price);
+      context.read<CartBloc>().add(const CartEvent.getCartQuantity());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final imageHeight = height(context) * 0.18;
@@ -60,7 +87,7 @@ class CartProductsCardState extends State<CartProductsCard> {
                       CachedNetworkImage(
                           imageUrl: widget.product.imageUrl,
                           placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
+                              const Icon(Icons.photo),
                           errorWidget: (context, url, error) =>
                               const Icon(Icons.error),
                           height: imageHeight,
@@ -117,12 +144,7 @@ class CartProductsCardState extends State<CartProductsCard> {
                     const Spacer(),
                     IncrementOrDecrementWidget(
                       quantity: quantity,
-                      onValueChangeCallback: (quantity) {
-                        setState(() {
-                          price = originalPrice * quantity;
-                          this.quantity = quantity;
-                        });
-                      },
+                      onValueChangeCallback: _changeProductCartQuantity,
                     ),
                   ],
                 )

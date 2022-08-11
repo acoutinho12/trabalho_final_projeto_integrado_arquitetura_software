@@ -17,7 +17,7 @@ class _LoadingWidget extends State<LoadingWidget> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<HomeBloc>(context).add(GetAllProducts());
+    context.read<HomeBloc>().add(GetAllProducts());
   }
 
   @override
