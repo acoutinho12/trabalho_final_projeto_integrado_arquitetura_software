@@ -8,7 +8,7 @@ class WishListState with _$WishListState {
       {required WishListProducts wishListProducts}) = _WishListProducts;
   const factory WishListState.wishListProductsId(
       {required List<int> wishListProductsId}) = _WishListProductsId;
-  const factory WishListState.favorited({required bool isFavorite}) =
-      _WishListFavorited;
+  const factory WishListState.favorited() = _WishListFavorited;
+  const factory WishListState.removed() = _WishListRemoved;
   const factory WishListState.error({required String message}) = _Error;
 }

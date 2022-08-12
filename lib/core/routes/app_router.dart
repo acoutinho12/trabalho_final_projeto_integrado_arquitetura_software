@@ -12,7 +12,7 @@ const maintainState = false;
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    AutoRoute(page: AppPage, initial: true, maintainState: maintainState),
+    AutoRoute(page: AppPage, initial: true),
     AutoRoute(page: CartPage, maintainState: maintainState),
     AutoRoute(page: ProductDetailPage, maintainState: maintainState),
   ],

@@ -60,28 +60,28 @@ class _AddToCartState extends State<AddToCart> {
               color: Colors.transparent,
               child: InkWell(
                   onTap: _addToCart,
-                  child: SizedBox(
-                    child: Ink(
-                      child: Center(
-                        child: Row(
-                          children: const [
-                            Icon(
-                              Icons.shopping_cart_outlined,
+                  child: Ink(
+                    width: 120,
+                    height: 55,
+                    child: Center(
+                      child: Row(
+                        children: const [
+                          Icon(
+                            Icons.shopping_cart_outlined,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          SizedBox(width: 8.0),
+                          Text(
+                            "Adicionar",
+                            style: TextStyle(
                               color: Colors.white,
-                              size: 20,
+                              fontSize: 12.0,
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
                             ),
-                            SizedBox(width: 8.0),
-                            Text(
-                              "Adicionar",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 12.0,
-                                fontFamily: 'Roboto',
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   )),

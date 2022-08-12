@@ -25,6 +25,8 @@ class _FavoriteProductState extends State<FavoriteProduct> {
   Color iconColor = Colors.white;
   Color circleAvatarBackgroundColor = ColorConstants.primaryColor;
   double _size = 16;
+  late final WishListProduct _wishListProduct =
+      _createWishListProduct(widget.product);
 
   @override
   void initState() {
@@ -52,10 +54,20 @@ class _FavoriteProductState extends State<FavoriteProduct> {
     _size = _isFavorite ? 16 : 24;
   }
 
+  void _addOrRemoveFromWishList() {
+    _isFavorite ? _removeFromWishList() : _addToWishList();
+  }
+
   void _addToWishList() {
-    WishListProduct wishListProduct = _createWishListProduct(widget.product);
     widget.wishListBloc
-        .add(WishListEvent.addToWishList(wishListProduct: wishListProduct));
+        .add(WishListEvent.addToWishList(wishListProduct: _wishListProduct));
+    _setFavorite();
+    _showSnackBar();
+  }
+
+  void _removeFromWishList() {
+    widget.wishListBloc.add(
+        WishListEvent.removeFromWishList(wishListProduct: _wishListProduct));
     _setFavorite();
     _showSnackBar();
   }
@@ -87,7 +99,7 @@ class _FavoriteProductState extends State<FavoriteProduct> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: _addToWishList,
+      onTap: _addOrRemoveFromWishList,
       child: CircleAvatar(
         radius: _size,
         backgroundColor: circleAvatarBackgroundColor,

@@ -7,21 +7,23 @@ import 'package:ollen/features/wish_list/domain/entities/wish_list_product.dart'
 import 'package:ollen/features/wish_list/domain/repositories/wish_list_repository.dart';
 
 @lazySingleton
-class AddProductToWishList implements UseCase<void, AddToWishListParams> {
+class RemoveProductFromWishList
+    implements UseCase<void, RemoveProductFromWishListParams> {
   final WishListRepository repository;
 
-  AddProductToWishList(this.repository);
+  RemoveProductFromWishList(this.repository);
 
   @override
-  Future<Either<Failure, void>> call(AddToWishListParams params) async {
-    return await repository.addToWishList(
+  Future<Either<Failure, void>> call(
+      RemoveProductFromWishListParams params) async {
+    return await repository.removeFromWishList(
         wishListProduct: params.wishListProduct);
   }
 }
 
-class AddToWishListParams extends Equatable {
+class RemoveProductFromWishListParams extends Equatable {
   final WishListProduct wishListProduct;
-  const AddToWishListParams({required this.wishListProduct});
+  const RemoveProductFromWishListParams({required this.wishListProduct});
 
   @override
   List<Object?> get props => [wishListProduct];

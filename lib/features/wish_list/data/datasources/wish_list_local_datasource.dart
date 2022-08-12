@@ -6,7 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class WishListLocalDataSource {
   Future<WishListProductsModel> getWishListProducts();
-  Future<bool> addToWishList({required WishListProductModel wishListProduct});
+  Future<void> addToWishList({required WishListProductModel wishListProduct});
+  Future<void> removeFromWishList(
+      {required WishListProductModel wishListProduct});
   Future<List<int>> getWishListProductsId();
 }
 
@@ -25,18 +27,28 @@ class WishListLocalDataSourceImpl implements WishListLocalDataSource {
   }
 
   @override
-  Future<bool> addToWishList(
+  Future<void> addToWishList(
       {required WishListProductModel wishListProduct}) async {
     WishListProductsModel wishListProducts = _getWishListProducts();
-    if (!wishListProducts.any((p) => p.id == wishListProduct.id)) {
+    if (!_productExistInList(wishListProducts, wishListProduct)) {
       wishListProducts.add(wishListProduct);
       _addToWishList(wishListProducts);
-      return true;
-    } else {
+    }
+  }
+
+  @override
+  Future<void> removeFromWishList(
+      {required WishListProductModel wishListProduct}) async {
+    WishListProductsModel wishListProducts = _getWishListProducts();
+    if (_productExistInList(wishListProducts, wishListProduct)) {
       wishListProducts.remove(wishListProduct);
       _removeFromWishList(wishListProducts);
-      return false;
     }
+  }
+
+  bool _productExistInList(WishListProductsModel wishListProducts,
+      WishListProductModel wishListProduct) {
+    return wishListProducts.any((p) => p.id == wishListProduct.id);
   }
 
   @override

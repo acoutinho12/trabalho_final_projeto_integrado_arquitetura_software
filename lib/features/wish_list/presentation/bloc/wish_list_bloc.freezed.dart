@@ -20,6 +20,8 @@ mixin _$WishListEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllProducts,
     required TResult Function(WishListProduct wishListProduct) addToWishList,
+    required TResult Function(WishListProduct wishListProduct)
+        removeFromWishList,
     required TResult Function() getWishListProductsId,
   }) =>
       throw _privateConstructorUsedError;
@@ -27,6 +29,7 @@ mixin _$WishListEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
   }) =>
       throw _privateConstructorUsedError;
@@ -34,6 +37,7 @@ mixin _$WishListEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
     required TResult orElse(),
   }) =>
@@ -42,6 +46,7 @@ mixin _$WishListEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllProducts value) getAllProducts,
     required TResult Function(_AddToWishList value) addToWishList,
+    required TResult Function(_RemoveFromWishList value) removeFromWishList,
     required TResult Function(_GetWishListProductsId value)
         getWishListProductsId,
   }) =>
@@ -50,6 +55,7 @@ mixin _$WishListEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
   }) =>
       throw _privateConstructorUsedError;
@@ -57,6 +63,7 @@ mixin _$WishListEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
     required TResult orElse(),
   }) =>
@@ -123,6 +130,8 @@ class _$_GetAllProducts implements _GetAllProducts {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllProducts,
     required TResult Function(WishListProduct wishListProduct) addToWishList,
+    required TResult Function(WishListProduct wishListProduct)
+        removeFromWishList,
     required TResult Function() getWishListProductsId,
   }) {
     return getAllProducts();
@@ -133,6 +142,7 @@ class _$_GetAllProducts implements _GetAllProducts {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
   }) {
     return getAllProducts?.call();
@@ -143,6 +153,7 @@ class _$_GetAllProducts implements _GetAllProducts {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
     required TResult orElse(),
   }) {
@@ -157,6 +168,7 @@ class _$_GetAllProducts implements _GetAllProducts {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllProducts value) getAllProducts,
     required TResult Function(_AddToWishList value) addToWishList,
+    required TResult Function(_RemoveFromWishList value) removeFromWishList,
     required TResult Function(_GetWishListProductsId value)
         getWishListProductsId,
   }) {
@@ -168,6 +180,7 @@ class _$_GetAllProducts implements _GetAllProducts {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
   }) {
     return getAllProducts?.call(this);
@@ -178,6 +191,7 @@ class _$_GetAllProducts implements _GetAllProducts {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
     required TResult orElse(),
   }) {
@@ -260,6 +274,8 @@ class _$_AddToWishList implements _AddToWishList {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllProducts,
     required TResult Function(WishListProduct wishListProduct) addToWishList,
+    required TResult Function(WishListProduct wishListProduct)
+        removeFromWishList,
     required TResult Function() getWishListProductsId,
   }) {
     return addToWishList(wishListProduct);
@@ -270,6 +286,7 @@ class _$_AddToWishList implements _AddToWishList {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
   }) {
     return addToWishList?.call(wishListProduct);
@@ -280,6 +297,7 @@ class _$_AddToWishList implements _AddToWishList {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
     required TResult orElse(),
   }) {
@@ -294,6 +312,7 @@ class _$_AddToWishList implements _AddToWishList {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllProducts value) getAllProducts,
     required TResult Function(_AddToWishList value) addToWishList,
+    required TResult Function(_RemoveFromWishList value) removeFromWishList,
     required TResult Function(_GetWishListProductsId value)
         getWishListProductsId,
   }) {
@@ -305,6 +324,7 @@ class _$_AddToWishList implements _AddToWishList {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
   }) {
     return addToWishList?.call(this);
@@ -315,6 +335,7 @@ class _$_AddToWishList implements _AddToWishList {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
     required TResult orElse(),
   }) {
@@ -332,6 +353,157 @@ abstract class _AddToWishList implements WishListEvent {
   WishListProduct get wishListProduct;
   @JsonKey(ignore: true)
   _$$_AddToWishListCopyWith<_$_AddToWishList> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$_RemoveFromWishListCopyWith<$Res> {
+  factory _$$_RemoveFromWishListCopyWith(_$_RemoveFromWishList value,
+          $Res Function(_$_RemoveFromWishList) then) =
+      __$$_RemoveFromWishListCopyWithImpl<$Res>;
+  $Res call({WishListProduct wishListProduct});
+}
+
+/// @nodoc
+class __$$_RemoveFromWishListCopyWithImpl<$Res>
+    extends _$WishListEventCopyWithImpl<$Res>
+    implements _$$_RemoveFromWishListCopyWith<$Res> {
+  __$$_RemoveFromWishListCopyWithImpl(
+      _$_RemoveFromWishList _value, $Res Function(_$_RemoveFromWishList) _then)
+      : super(_value, (v) => _then(v as _$_RemoveFromWishList));
+
+  @override
+  _$_RemoveFromWishList get _value => super._value as _$_RemoveFromWishList;
+
+  @override
+  $Res call({
+    Object? wishListProduct = freezed,
+  }) {
+    return _then(_$_RemoveFromWishList(
+      wishListProduct: wishListProduct == freezed
+          ? _value.wishListProduct
+          : wishListProduct // ignore: cast_nullable_to_non_nullable
+              as WishListProduct,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_RemoveFromWishList implements _RemoveFromWishList {
+  const _$_RemoveFromWishList({required this.wishListProduct});
+
+  @override
+  final WishListProduct wishListProduct;
+
+  @override
+  String toString() {
+    return 'WishListEvent.removeFromWishList(wishListProduct: $wishListProduct)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_RemoveFromWishList &&
+            const DeepCollectionEquality()
+                .equals(other.wishListProduct, wishListProduct));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(wishListProduct));
+
+  @JsonKey(ignore: true)
+  @override
+  _$$_RemoveFromWishListCopyWith<_$_RemoveFromWishList> get copyWith =>
+      __$$_RemoveFromWishListCopyWithImpl<_$_RemoveFromWishList>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() getAllProducts,
+    required TResult Function(WishListProduct wishListProduct) addToWishList,
+    required TResult Function(WishListProduct wishListProduct)
+        removeFromWishList,
+    required TResult Function() getWishListProductsId,
+  }) {
+    return removeFromWishList(wishListProduct);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? getAllProducts,
+    TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
+    TResult Function()? getWishListProductsId,
+  }) {
+    return removeFromWishList?.call(wishListProduct);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? getAllProducts,
+    TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
+    TResult Function()? getWishListProductsId,
+    required TResult orElse(),
+  }) {
+    if (removeFromWishList != null) {
+      return removeFromWishList(wishListProduct);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetAllProducts value) getAllProducts,
+    required TResult Function(_AddToWishList value) addToWishList,
+    required TResult Function(_RemoveFromWishList value) removeFromWishList,
+    required TResult Function(_GetWishListProductsId value)
+        getWishListProductsId,
+  }) {
+    return removeFromWishList(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_GetAllProducts value)? getAllProducts,
+    TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
+    TResult Function(_GetWishListProductsId value)? getWishListProductsId,
+  }) {
+    return removeFromWishList?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetAllProducts value)? getAllProducts,
+    TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
+    TResult Function(_GetWishListProductsId value)? getWishListProductsId,
+    required TResult orElse(),
+  }) {
+    if (removeFromWishList != null) {
+      return removeFromWishList(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _RemoveFromWishList implements WishListEvent {
+  const factory _RemoveFromWishList(
+      {required final WishListProduct wishListProduct}) = _$_RemoveFromWishList;
+
+  WishListProduct get wishListProduct;
+  @JsonKey(ignore: true)
+  _$$_RemoveFromWishListCopyWith<_$_RemoveFromWishList> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -379,6 +551,8 @@ class _$_GetWishListProductsId implements _GetWishListProductsId {
   TResult when<TResult extends Object?>({
     required TResult Function() getAllProducts,
     required TResult Function(WishListProduct wishListProduct) addToWishList,
+    required TResult Function(WishListProduct wishListProduct)
+        removeFromWishList,
     required TResult Function() getWishListProductsId,
   }) {
     return getWishListProductsId();
@@ -389,6 +563,7 @@ class _$_GetWishListProductsId implements _GetWishListProductsId {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
   }) {
     return getWishListProductsId?.call();
@@ -399,6 +574,7 @@ class _$_GetWishListProductsId implements _GetWishListProductsId {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? getAllProducts,
     TResult Function(WishListProduct wishListProduct)? addToWishList,
+    TResult Function(WishListProduct wishListProduct)? removeFromWishList,
     TResult Function()? getWishListProductsId,
     required TResult orElse(),
   }) {
@@ -413,6 +589,7 @@ class _$_GetWishListProductsId implements _GetWishListProductsId {
   TResult map<TResult extends Object?>({
     required TResult Function(_GetAllProducts value) getAllProducts,
     required TResult Function(_AddToWishList value) addToWishList,
+    required TResult Function(_RemoveFromWishList value) removeFromWishList,
     required TResult Function(_GetWishListProductsId value)
         getWishListProductsId,
   }) {
@@ -424,6 +601,7 @@ class _$_GetWishListProductsId implements _GetWishListProductsId {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
   }) {
     return getWishListProductsId?.call(this);
@@ -434,6 +612,7 @@ class _$_GetWishListProductsId implements _GetWishListProductsId {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_GetAllProducts value)? getAllProducts,
     TResult Function(_AddToWishList value)? addToWishList,
+    TResult Function(_RemoveFromWishList value)? removeFromWishList,
     TResult Function(_GetWishListProductsId value)? getWishListProductsId,
     required TResult orElse(),
   }) {
@@ -457,7 +636,8 @@ mixin _$WishListState {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -467,7 +647,8 @@ mixin _$WishListState {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -477,7 +658,8 @@ mixin _$WishListState {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
@@ -489,6 +671,7 @@ mixin _$WishListState {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -499,6 +682,7 @@ mixin _$WishListState {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -509,6 +693,7 @@ mixin _$WishListState {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) =>
@@ -576,7 +761,8 @@ class _$_Initial implements _Initial {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) {
     return initial();
@@ -589,7 +775,8 @@ class _$_Initial implements _Initial {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) {
     return initial?.call();
@@ -602,7 +789,8 @@ class _$_Initial implements _Initial {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -620,6 +808,7 @@ class _$_Initial implements _Initial {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) {
     return initial(this);
@@ -633,6 +822,7 @@ class _$_Initial implements _Initial {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) {
     return initial?.call(this);
@@ -646,6 +836,7 @@ class _$_Initial implements _Initial {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -704,7 +895,8 @@ class _$_Loading implements _Loading {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -717,7 +909,8 @@ class _$_Loading implements _Loading {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) {
     return loading?.call();
@@ -730,7 +923,8 @@ class _$_Loading implements _Loading {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -748,6 +942,7 @@ class _$_Loading implements _Loading {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) {
     return loading(this);
@@ -761,6 +956,7 @@ class _$_Loading implements _Loading {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) {
     return loading?.call(this);
@@ -774,6 +970,7 @@ class _$_Loading implements _Loading {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -865,7 +1062,8 @@ class _$_WishListProducts implements _WishListProducts {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) {
     return wishListProducts(this.wishListProducts);
@@ -878,7 +1076,8 @@ class _$_WishListProducts implements _WishListProducts {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) {
     return wishListProducts?.call(this.wishListProducts);
@@ -891,7 +1090,8 @@ class _$_WishListProducts implements _WishListProducts {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -909,6 +1109,7 @@ class _$_WishListProducts implements _WishListProducts {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) {
     return wishListProducts(this);
@@ -922,6 +1123,7 @@ class _$_WishListProducts implements _WishListProducts {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) {
     return wishListProducts?.call(this);
@@ -935,6 +1137,7 @@ class _$_WishListProducts implements _WishListProducts {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1033,7 +1236,8 @@ class _$_WishListProductsId implements _WishListProductsId {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) {
     return wishListProductsId(this.wishListProductsId);
@@ -1046,7 +1250,8 @@ class _$_WishListProductsId implements _WishListProductsId {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) {
     return wishListProductsId?.call(this.wishListProductsId);
@@ -1059,7 +1264,8 @@ class _$_WishListProductsId implements _WishListProductsId {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1077,6 +1283,7 @@ class _$_WishListProductsId implements _WishListProductsId {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) {
     return wishListProductsId(this);
@@ -1090,6 +1297,7 @@ class _$_WishListProductsId implements _WishListProductsId {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) {
     return wishListProductsId?.call(this);
@@ -1103,6 +1311,7 @@ class _$_WishListProductsId implements _WishListProductsId {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1128,7 +1337,6 @@ abstract class _$$_WishListFavoritedCopyWith<$Res> {
   factory _$$_WishListFavoritedCopyWith(_$_WishListFavorited value,
           $Res Function(_$_WishListFavorited) then) =
       __$$_WishListFavoritedCopyWithImpl<$Res>;
-  $Res call({bool isFavorite});
 }
 
 /// @nodoc
@@ -1141,51 +1349,26 @@ class __$$_WishListFavoritedCopyWithImpl<$Res>
 
   @override
   _$_WishListFavorited get _value => super._value as _$_WishListFavorited;
-
-  @override
-  $Res call({
-    Object? isFavorite = freezed,
-  }) {
-    return _then(_$_WishListFavorited(
-      isFavorite: isFavorite == freezed
-          ? _value.isFavorite
-          : isFavorite // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$_WishListFavorited implements _WishListFavorited {
-  const _$_WishListFavorited({required this.isFavorite});
-
-  @override
-  final bool isFavorite;
+  const _$_WishListFavorited();
 
   @override
   String toString() {
-    return 'WishListState.favorited(isFavorite: $isFavorite)';
+    return 'WishListState.favorited()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_WishListFavorited &&
-            const DeepCollectionEquality()
-                .equals(other.isFavorite, isFavorite));
+        (other.runtimeType == runtimeType && other is _$_WishListFavorited);
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(isFavorite));
-
-  @JsonKey(ignore: true)
-  @override
-  _$$_WishListFavoritedCopyWith<_$_WishListFavorited> get copyWith =>
-      __$$_WishListFavoritedCopyWithImpl<_$_WishListFavorited>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
@@ -1195,10 +1378,11 @@ class _$_WishListFavorited implements _WishListFavorited {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) {
-    return favorited(isFavorite);
+    return favorited();
   }
 
   @override
@@ -1208,10 +1392,11 @@ class _$_WishListFavorited implements _WishListFavorited {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) {
-    return favorited?.call(isFavorite);
+    return favorited?.call();
   }
 
   @override
@@ -1221,12 +1406,13 @@ class _$_WishListFavorited implements _WishListFavorited {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (favorited != null) {
-      return favorited(isFavorite);
+      return favorited();
     }
     return orElse();
   }
@@ -1239,6 +1425,7 @@ class _$_WishListFavorited implements _WishListFavorited {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) {
     return favorited(this);
@@ -1252,6 +1439,7 @@ class _$_WishListFavorited implements _WishListFavorited {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) {
     return favorited?.call(this);
@@ -1265,6 +1453,7 @@ class _$_WishListFavorited implements _WishListFavorited {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {
@@ -1276,13 +1465,143 @@ class _$_WishListFavorited implements _WishListFavorited {
 }
 
 abstract class _WishListFavorited implements WishListState {
-  const factory _WishListFavorited({required final bool isFavorite}) =
-      _$_WishListFavorited;
+  const factory _WishListFavorited() = _$_WishListFavorited;
+}
 
-  bool get isFavorite;
-  @JsonKey(ignore: true)
-  _$$_WishListFavoritedCopyWith<_$_WishListFavorited> get copyWith =>
-      throw _privateConstructorUsedError;
+/// @nodoc
+abstract class _$$_WishListRemovedCopyWith<$Res> {
+  factory _$$_WishListRemovedCopyWith(
+          _$_WishListRemoved value, $Res Function(_$_WishListRemoved) then) =
+      __$$_WishListRemovedCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$_WishListRemovedCopyWithImpl<$Res>
+    extends _$WishListStateCopyWithImpl<$Res>
+    implements _$$_WishListRemovedCopyWith<$Res> {
+  __$$_WishListRemovedCopyWithImpl(
+      _$_WishListRemoved _value, $Res Function(_$_WishListRemoved) _then)
+      : super(_value, (v) => _then(v as _$_WishListRemoved));
+
+  @override
+  _$_WishListRemoved get _value => super._value as _$_WishListRemoved;
+}
+
+/// @nodoc
+
+class _$_WishListRemoved implements _WishListRemoved {
+  const _$_WishListRemoved();
+
+  @override
+  String toString() {
+    return 'WishListState.removed()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$_WishListRemoved);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<WishListProduct> wishListProducts)
+        wishListProducts,
+    required TResult Function(List<int> wishListProductsId) wishListProductsId,
+    required TResult Function() favorited,
+    required TResult Function() removed,
+    required TResult Function(String message) error,
+  }) {
+    return removed();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
+    TResult Function(List<int> wishListProductsId)? wishListProductsId,
+    TResult Function()? favorited,
+    TResult Function()? removed,
+    TResult Function(String message)? error,
+  }) {
+    return removed?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
+    TResult Function(List<int> wishListProductsId)? wishListProductsId,
+    TResult Function()? favorited,
+    TResult Function()? removed,
+    TResult Function(String message)? error,
+    required TResult orElse(),
+  }) {
+    if (removed != null) {
+      return removed();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_WishListProducts value) wishListProducts,
+    required TResult Function(_WishListProductsId value) wishListProductsId,
+    required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
+    required TResult Function(_Error value) error,
+  }) {
+    return removed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_WishListProducts value)? wishListProducts,
+    TResult Function(_WishListProductsId value)? wishListProductsId,
+    TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
+    TResult Function(_Error value)? error,
+  }) {
+    return removed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_WishListProducts value)? wishListProducts,
+    TResult Function(_WishListProductsId value)? wishListProductsId,
+    TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
+    TResult Function(_Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (removed != null) {
+      return removed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _WishListRemoved implements WishListState {
+  const factory _WishListRemoved() = _$_WishListRemoved;
 }
 
 /// @nodoc
@@ -1352,7 +1671,8 @@ class _$_Error implements _Error {
     required TResult Function(List<WishListProduct> wishListProducts)
         wishListProducts,
     required TResult Function(List<int> wishListProductsId) wishListProductsId,
-    required TResult Function(bool isFavorite) favorited,
+    required TResult Function() favorited,
+    required TResult Function() removed,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -1365,7 +1685,8 @@ class _$_Error implements _Error {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
   }) {
     return error?.call(message);
@@ -1378,7 +1699,8 @@ class _$_Error implements _Error {
     TResult Function()? loading,
     TResult Function(List<WishListProduct> wishListProducts)? wishListProducts,
     TResult Function(List<int> wishListProductsId)? wishListProductsId,
-    TResult Function(bool isFavorite)? favorited,
+    TResult Function()? favorited,
+    TResult Function()? removed,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -1396,6 +1718,7 @@ class _$_Error implements _Error {
     required TResult Function(_WishListProducts value) wishListProducts,
     required TResult Function(_WishListProductsId value) wishListProductsId,
     required TResult Function(_WishListFavorited value) favorited,
+    required TResult Function(_WishListRemoved value) removed,
     required TResult Function(_Error value) error,
   }) {
     return error(this);
@@ -1409,6 +1732,7 @@ class _$_Error implements _Error {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
   }) {
     return error?.call(this);
@@ -1422,6 +1746,7 @@ class _$_Error implements _Error {
     TResult Function(_WishListProducts value)? wishListProducts,
     TResult Function(_WishListProductsId value)? wishListProductsId,
     TResult Function(_WishListFavorited value)? favorited,
+    TResult Function(_WishListRemoved value)? removed,
     TResult Function(_Error value)? error,
     required TResult orElse(),
   }) {

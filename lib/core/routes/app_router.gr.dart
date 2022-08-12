@@ -19,7 +19,7 @@ class _$AppRouter extends RootStackRouter {
   final Map<String, PageFactory> pagesMap = {
     AppRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AppPage(), maintainState: false);
+          routeData: routeData, child: const AppPage());
     },
     CartRoute.name: (routeData) {
       return MaterialPageX<dynamic>(

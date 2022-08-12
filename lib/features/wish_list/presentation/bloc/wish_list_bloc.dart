@@ -7,18 +7,20 @@ import 'package:ollen/features/wish_list/domain/entities/wish_list_product.dart'
 import 'package:ollen/features/wish_list/domain/usecases/add_product_to_wish_list.dart';
 import 'package:ollen/features/wish_list/domain/usecases/get_all_wish_list_products.dart';
 import 'package:ollen/features/wish_list/domain/usecases/get_wish_list_products_id.dart';
+import 'package:ollen/features/wish_list/domain/usecases/remove_product_from_wish_list.dart';
 
 part 'wish_list_bloc.freezed.dart';
 part 'wish_list_event.dart';
 part 'wish_list_state.dart';
 
-@lazySingleton
+@injectable
 class WishListBloc extends Bloc<WishListEvent, WishListState> {
   final GetAllWishListProducts _getAllWishListProducts;
   final AddProductToWishList _addProductToWishList;
   final GetWishListProductsId _getWishListProductsIdUseCase;
+  final RemoveProductFromWishList _removeProductFromWishList;
   WishListBloc(this._getAllWishListProducts, this._addProductToWishList,
-      this._getWishListProductsIdUseCase)
+      this._getWishListProductsIdUseCase, this._removeProductFromWishList)
       : super(const WishListState.initial());
 
   @override
@@ -28,7 +30,8 @@ class WishListBloc extends Bloc<WishListEvent, WishListState> {
     yield* event.when(
         getAllProducts: _getAllProducts,
         addToWishList: _addToWishList,
-        getWishListProductsId: _getWishListProductsId);
+        getWishListProductsId: _getWishListProductsId,
+        removeFromWishList: _removeFromWishList);
   }
 
 /////////////////////////////// Private ///////////////////////////////////////
@@ -58,7 +61,19 @@ class WishListBloc extends Bloc<WishListEvent, WishListState> {
         await _addProductToWishList(addToWishListParams);
     yield addToWishListOrFail.fold(
         (message) => WishListState.error(message: failureToMessage(message)),
-        (isFavorite) => WishListState.favorited(isFavorite: isFavorite));
+        (l) => const WishListState.initial());
+  }
+
+  Stream<WishListState> _removeFromWishList(
+      WishListProduct wishListProduct) async* {
+    const WishListState.loading();
+    RemoveProductFromWishListParams addToWishListParams =
+        RemoveProductFromWishListParams(wishListProduct: wishListProduct);
+    final removeFromWishListOrFail =
+        await _removeProductFromWishList(addToWishListParams);
+    yield removeFromWishListOrFail.fold(
+        (message) => WishListState.error(message: failureToMessage(message)),
+        (l) => const WishListState.initial());
   }
   /////////////////////////////// Private ///////////////////////////////////////
 }

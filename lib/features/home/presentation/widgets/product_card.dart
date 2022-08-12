@@ -1,8 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ollen/core/routes/app_router.dart';
 import 'package:ollen/core/utils/colors.dart';
+import 'package:ollen/core/utils/navigate.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/home/presentation/widgets/favorite_product.dart';
 import 'package:ollen/features/wish_list/presentation/bloc/wish_list_bloc.dart';
@@ -17,19 +16,21 @@ class ProductCard extends StatelessWidget {
       required this.wishListBloc,
       required this.favoriteIds})
       : super(key: key);
+
+  bool _isFavorite() {
+    return favoriteIds.any((element) => element == product.id);
+  }
+
   @override
   Widget build(BuildContext context) {
-    void _onTap() {
-      AutoRouter.of(context).push(ProductDetailRoute(product: product));
-    }
-
-    bool _isFavorite() {
-      return favoriteIds.any((element) => element == product.id);
+    Navigate navigate = Navigate(context);
+    void _goToProductDetailsPage() {
+      navigate.toProductDetails(product: product);
     }
 
     const sizedBoxHeiht = 12.0;
     return GestureDetector(
-      onTap: _onTap,
+      onTap: _goToProductDetailsPage,
       child: Container(
         decoration: BoxDecoration(
           boxShadow: [

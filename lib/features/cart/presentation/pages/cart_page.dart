@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ollen/core/widgets/default_scaffold.dart';
+import 'package:ollen/core/widgets/empty_page.dart';
 import 'package:ollen/features/cart/domain/entities/cart_product.dart';
 import 'package:ollen/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/features/cart/presentation/widgets/cart_loading.dart';
 import 'package:ollen/features/cart/presentation/widgets/cart_widget.dart';
-import 'package:ollen/core/widgets/default_scaffold.dart';
-import 'package:ollen/core/widgets/empty_page.dart';
 import 'package:ollen/injection.dart';
 
 class CartPage extends StatefulWidget {
@@ -18,7 +18,7 @@ class CartPage extends StatefulWidget {
 class CartPageState extends State<CartPage> {
   CartProducts _cartProducts = [];
   final CartBloc cartBloc = getIt<CartBloc>();
-  bool _isLoading = true;
+  bool _isLoading = false;
   final SafeAreaProps safeAreaProps = const SafeAreaProps(bottom: false);
   final String message = "Nenhum produto no carrinho";
   @override
@@ -45,6 +45,12 @@ class CartPageState extends State<CartPage> {
     });
   }
 
+  void _setLoadingFalse() {
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultScaffold(
@@ -53,9 +59,10 @@ class CartPageState extends State<CartPage> {
       child: BlocListener<CartBloc, CartState>(
           bloc: cartBloc,
           listener: (context, state) {
-            state.whenOrNull(
+            state.maybeWhen(
                 loaded: _setCartProducts,
-                loading: _setLoading);
+                loading: _setLoading,
+                orElse: _setLoadingFalse);
           },
           child: _isLoading
               ? const CartLoadingWidget()

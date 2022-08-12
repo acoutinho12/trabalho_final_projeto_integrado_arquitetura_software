@@ -23,15 +23,15 @@ class WishListRepositoryImpl extends WishListRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> addToWishList(
+  Future<Either<Failure, void>> addToWishList(
       {required WishListProduct wishListProduct}) async {
     try {
       final WishListProductModel wishListProductModel =
           WishListProductModel.wishListProductToWishListProductModel(
               wishListProduct);
-      final remoteData = await remoteDataSource.addToWishList(
+      await remoteDataSource.addToWishList(
           wishListProduct: wishListProductModel);
-      return Right(remoteData);
+      return const Right(null);
     } on ServerException {
       return Left(ServerFailure());
     }
@@ -42,6 +42,21 @@ class WishListRepositoryImpl extends WishListRepository {
     try {
       final remoteIds = await remoteDataSource.getWishListProductsId();
       return Right(remoteIds);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, void>> removeFromWishList(
+      {required WishListProduct wishListProduct}) async {
+    try {
+      final WishListProductModel wishListProductModel =
+          WishListProductModel.wishListProductToWishListProductModel(
+              wishListProduct);
+      await remoteDataSource.removeFromWishList(
+          wishListProduct: wishListProductModel);
+      return const Right(null);
     } on ServerException {
       return Left(ServerFailure());
     }
