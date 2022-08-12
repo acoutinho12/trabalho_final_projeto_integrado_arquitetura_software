@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/widgets/default_scaffold.dart';
+import 'package:ollen/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/product_detail/presentation/widgets/product_detail_card.dart';
 import 'package:ollen/injection.dart';
@@ -36,7 +36,6 @@ class _ProductDetailPageState extends State<ProductDetailPage> {
       child: DefaultScaffold(
           safeAreaProps: safeAreaProps,
           appBarTitle: widget.product.name,
-          withActions: true,
           child:
               ProductDetailCard(product: widget.product, cartBloc: cartBloc)),
     );

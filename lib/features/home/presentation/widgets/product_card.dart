@@ -5,14 +5,26 @@ import 'package:ollen/core/routes/app_router.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/home/presentation/widgets/favorite_product.dart';
+import 'package:ollen/features/wish_list/presentation/bloc/wish_list_bloc.dart';
 
 class ProductCard extends StatelessWidget {
   final Product product;
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  final WishListBloc wishListBloc;
+  final List<int> favoriteIds;
+  const ProductCard(
+      {Key? key,
+      required this.product,
+      required this.wishListBloc,
+      required this.favoriteIds})
+      : super(key: key);
   @override
   Widget build(BuildContext context) {
     void _onTap() {
       AutoRouter.of(context).push(ProductDetailRoute(product: product));
+    }
+
+    bool _isFavorite() {
+      return favoriteIds.any((element) => element == product.id);
     }
 
     const sizedBoxHeiht = 12.0;
@@ -31,7 +43,7 @@ class ProductCard extends StatelessWidget {
               ),
             )
           ],
-          color: Colors.white,
+          color: ColorConstants.appColor,
           borderRadius: BorderRadius.circular(8.0),
         ),
         padding: const EdgeInsets.all(8.0),
@@ -85,7 +97,10 @@ class ProductCard extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      const FavoriteProduct()
+                      FavoriteProduct(
+                          product: product,
+                          wishListBloc: wishListBloc,
+                          isFavorite: _isFavorite())
                     ],
                   ),
                 ],

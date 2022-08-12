@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
+import 'package:ollen/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 
 class AddToCart extends StatefulWidget {
@@ -25,7 +25,14 @@ class _AddToCartState extends State<AddToCart> {
     final String productName = widget.product.name;
     final SnackBar snackBar = SnackBar(
       content: Text(
-          "$quantity $productName Adicionado${quantity > 1 ? 's' : ''} ao carrinho"),
+        "$quantity $productName Adicionado${quantity > 1 ? 's' : ''} ao carrinho",
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 12.0,
+          fontFamily: 'Roboto',
+          fontWeight: FontWeight.bold,
+        ),
+      ),
     );
     setState(() {
       widget.cartBloc.add(CartEvent.addToCartProduct(

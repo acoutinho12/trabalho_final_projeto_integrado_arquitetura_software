@@ -2,11 +2,11 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/utils/media_query.dart';
 import 'package:ollen/core/widgets/increment_or_decrement_widget.dart';
 import 'package:ollen/core/widgets/rating_widget.dart';
+import 'package:ollen/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/features/home/domain/entities/product.dart';
 import 'package:ollen/features/product_detail/presentation/widgets/add_to_cart.dart';
 

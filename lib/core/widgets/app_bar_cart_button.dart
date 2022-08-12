@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/routes/app_router.dart';
+import 'package:ollen/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/injection.dart';
 
 import '../utils/colors.dart';

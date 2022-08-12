@@ -10,26 +10,38 @@ import 'package:http/http.dart' as _i3;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i7;
 
-import 'core/features/cart/data/datasource/cart_local_data_source.dart' as _i8;
-import 'core/features/cart/data/repositories/cart_repository_impl.dart' as _i10;
-import 'core/features/cart/domain/repositories/cart_repository.dart' as _i9;
-import 'core/features/cart/domain/usecases/add_cart_product.dart' as _i18;
-import 'core/features/cart/domain/usecases/change_product_cart_quantity.dart'
-    as _i11;
-import 'core/features/cart/domain/usecases/get_cart_products.dart' as _i12;
-import 'core/features/cart/domain/usecases/get_quantity_products_cart.dart'
-    as _i14;
-import 'core/features/cart/domain/usecases/get_total_price.dart' as _i15;
-import 'core/features/cart/domain/usecases/remove_from_cart.dart' as _i17;
-import 'core/features/cart/presentation/bloc/cart_bloc.dart' as _i19;
-import 'core/injectables/http_injectable_module.dart' as _i20;
-import 'core/injectables/shared_preferences_injectable_module.dart' as _i21;
+import 'core/injectables/http_injectable_module.dart' as _i27;
+import 'core/injectables/shared_preferences_injectable_module.dart' as _i28;
+import 'features/cart/data/datasource/cart_local_data_source.dart' as _i12;
+import 'features/cart/data/repositories/cart_repository_impl.dart' as _i14;
+import 'features/cart/domain/repositories/cart_repository.dart' as _i13;
+import 'features/cart/domain/usecases/add_cart_product.dart' as _i25;
+import 'features/cart/domain/usecases/change_product_cart_quantity.dart'
+    as _i15;
+import 'features/cart/domain/usecases/get_cart_products.dart' as _i17;
+import 'features/cart/domain/usecases/get_quantity_products_cart.dart' as _i19;
+import 'features/cart/domain/usecases/get_total_price.dart' as _i20;
+import 'features/cart/domain/usecases/remove_from_cart.dart' as _i23;
+import 'features/cart/presentation/bloc/cart_bloc.dart' as _i26;
 import 'features/home/data/datasources/product_remote_datasource.dart' as _i4;
 import 'features/home/data/repositories/product_repository_impl.dart' as _i6;
 import 'features/home/domain/repositories/product_repository.dart' as _i5;
-import 'features/home/domain/usecases/get_products.dart' as _i13;
-import 'features/home/presentation/bloc/home_bloc.dart'
-    as _i16; // ignore_for_file: unnecessary_lambdas
+import 'features/home/domain/usecases/get_products.dart' as _i18;
+import 'features/home/presentation/bloc/home_bloc.dart' as _i22;
+import 'features/wish_list/data/datasources/wish_list_local_datasource.dart'
+    as _i8;
+import 'features/wish_list/data/repositories/wish_list_repository_impl.dart'
+    as _i10;
+import 'features/wish_list/domain/repositories/wish_list_repository.dart'
+    as _i9;
+import 'features/wish_list/domain/usecases/add_product_to_wish_list.dart'
+    as _i11;
+import 'features/wish_list/domain/usecases/get_all_wish_list_products.dart'
+    as _i16;
+import 'features/wish_list/domain/usecases/get_wish_list_products_id.dart'
+    as _i21;
+import 'features/wish_list/presentation/bloc/wish_list_bloc.dart'
+    as _i24; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -44,39 +56,54 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i4.ProductRemoteDataSourceImpl());
   gh.lazySingleton<_i5.ProductRepository>(
       () => _i6.ProductRepositoryImpl(get<_i4.ProductRemoteDataSource>()));
-  await gh.factoryAsync<_i7.SharedPreferences>(
+  await gh.lazySingletonAsync<_i7.SharedPreferences>(
       () => sharedPreferencesInjectableModule.getSharedPreferences,
       preResolve: true);
-  gh.lazySingleton<_i8.CartLocalDataSource>(() => _i8.CartLocalDataSourceImpl(
+  gh.lazySingleton<_i8.WishListLocalDataSource>(() =>
+      _i8.WishListLocalDataSourceImpl(
+          sharedPreferences: get<_i7.SharedPreferences>()));
+  gh.lazySingleton<_i9.WishListRepository>(
+      () => _i10.WishListRepositoryImpl(get<_i8.WishListLocalDataSource>()));
+  gh.lazySingleton<_i11.AddProductToWishList>(
+      () => _i11.AddProductToWishList(get<_i9.WishListRepository>()));
+  gh.lazySingleton<_i12.CartLocalDataSource>(() => _i12.CartLocalDataSourceImpl(
       sharedPreferences: get<_i7.SharedPreferences>()));
-  gh.lazySingleton<_i9.CartRepository>(
-      () => _i10.CartRepositoryImpl(get<_i8.CartLocalDataSource>()));
-  gh.lazySingleton<_i11.ChangeProductCartQuantity>(
-      () => _i11.ChangeProductCartQuantity(get<_i9.CartRepository>()));
-  gh.lazySingleton<_i12.GetCartProducts>(
-      () => _i12.GetCartProducts(get<_i9.CartRepository>()));
-  gh.lazySingleton<_i13.GetProducts>(
-      () => _i13.GetProducts(get<_i5.ProductRepository>()));
-  gh.lazySingleton<_i14.GetQuantityCartProducts>(
-      () => _i14.GetQuantityCartProducts(get<_i9.CartRepository>()));
-  gh.lazySingleton<_i15.GetTotalPrice>(
-      () => _i15.GetTotalPrice(get<_i9.CartRepository>()));
-  gh.lazySingleton<_i16.HomeBloc>(() => _i16.HomeBloc(get<_i13.GetProducts>()));
-  gh.lazySingleton<_i17.RemoveFromCart>(
-      () => _i17.RemoveFromCart(get<_i9.CartRepository>()));
-  gh.lazySingleton<_i18.AddToCartProducts>(
-      () => _i18.AddToCartProducts(get<_i9.CartRepository>()));
-  gh.lazySingleton<_i19.CartBloc>(() => _i19.CartBloc(
-      get<_i12.GetCartProducts>(),
-      get<_i18.AddToCartProducts>(),
-      get<_i17.RemoveFromCart>(),
-      get<_i11.ChangeProductCartQuantity>(),
-      get<_i14.GetQuantityCartProducts>(),
-      get<_i15.GetTotalPrice>()));
+  gh.lazySingleton<_i13.CartRepository>(
+      () => _i14.CartRepositoryImpl(get<_i12.CartLocalDataSource>()));
+  gh.lazySingleton<_i15.ChangeProductCartQuantity>(
+      () => _i15.ChangeProductCartQuantity(get<_i13.CartRepository>()));
+  gh.lazySingleton<_i16.GetAllWishListProducts>(
+      () => _i16.GetAllWishListProducts(get<_i9.WishListRepository>()));
+  gh.lazySingleton<_i17.GetCartProducts>(
+      () => _i17.GetCartProducts(get<_i13.CartRepository>()));
+  gh.lazySingleton<_i18.GetProducts>(
+      () => _i18.GetProducts(get<_i5.ProductRepository>()));
+  gh.lazySingleton<_i19.GetQuantityCartProducts>(
+      () => _i19.GetQuantityCartProducts(get<_i13.CartRepository>()));
+  gh.lazySingleton<_i20.GetTotalPrice>(
+      () => _i20.GetTotalPrice(get<_i13.CartRepository>()));
+  gh.lazySingleton<_i21.GetWishListProductsId>(
+      () => _i21.GetWishListProductsId(get<_i9.WishListRepository>()));
+  gh.factory<_i22.HomeBloc>(() => _i22.HomeBloc(get<_i18.GetProducts>()));
+  gh.lazySingleton<_i23.RemoveFromCart>(
+      () => _i23.RemoveFromCart(get<_i13.CartRepository>()));
+  gh.lazySingleton<_i24.WishListBloc>(() => _i24.WishListBloc(
+      get<_i16.GetAllWishListProducts>(),
+      get<_i11.AddProductToWishList>(),
+      get<_i21.GetWishListProductsId>()));
+  gh.lazySingleton<_i25.AddToCartProducts>(
+      () => _i25.AddToCartProducts(get<_i13.CartRepository>()));
+  gh.lazySingleton<_i26.CartBloc>(() => _i26.CartBloc(
+      get<_i17.GetCartProducts>(),
+      get<_i25.AddToCartProducts>(),
+      get<_i23.RemoveFromCart>(),
+      get<_i15.ChangeProductCartQuantity>(),
+      get<_i19.GetQuantityCartProducts>(),
+      get<_i20.GetTotalPrice>()));
   return get;
 }
 
-class _$HttpInjectableModule extends _i20.HttpInjectableModule {}
+class _$HttpInjectableModule extends _i27.HttpInjectableModule {}
 
 class _$SharedPreferencesInjectableModule
-    extends _i21.SharedPreferencesInjectableModule {}
+    extends _i28.SharedPreferencesInjectableModule {}

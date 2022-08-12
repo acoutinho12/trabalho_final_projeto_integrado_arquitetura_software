@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:ollen/core/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:ollen/core/utils/colors.dart';
 import 'package:ollen/core/widgets/custom_app_bar.dart';
+import 'package:ollen/features/cart/presentation/bloc/cart_bloc.dart';
 
 class SafeAreaProps {
   final bool left;
@@ -26,7 +26,7 @@ class DefaultScaffold extends StatelessWidget {
       {Key? key,
       this.safeAreaProps,
       required this.appBarTitle,
-      required this.withActions,
+      this.withActions = true,
       required this.child,
       this.bottomNavigationBar,
       this.cartBloc})

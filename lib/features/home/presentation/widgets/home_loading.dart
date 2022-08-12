@@ -1,24 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:ollen/core/utils/media_query.dart';
-import 'package:ollen/features/home/presentation/bloc/bloc.dart';
-import 'package:ollen/injection.dart';
 
-class LoadingWidget extends StatefulWidget {
-  const LoadingWidget({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _LoadingWidget();
-  }
-}
-
-class _LoadingWidget extends State<LoadingWidget> {
-  @override
-  void initState() {
-    super.initState();
-    getIt<HomeBloc>().add(GetAllProducts());
-  }
+class HomeLoading extends StatelessWidget {
+  const HomeLoading({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
