@@ -1,16 +1,23 @@
-# ollen
+# Trabalho Final da disciplina de Projeto Integrado de Arquitetura de Software Distribuído no curso de pós-graduação de Arquitetura de Software Distribuído da PUC-MG
 
-A new Flutter project.
+## Integrantes
 
-## Getting Started
+- André Luis Barbosa Coutinho
+- Felipe Fagundes Giannecchini
+- Marcos Antônio Nobrega da Costa Jr
 
-This project is a starting point for a Flutter application.
+## Dependencias
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter](https://docs.flutter.dev/get-started/install)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Como rodar a aplicação
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Rode `flutter pub get` para instalar as dependências.<br />
+2. Rode `flutter run` para rodar o projeto no Android ou iOS.
+
+## Sobre a Stack utilizada
+
+- [Flutter](https://docs.flutter.dev/get-started/install)
+  O Flutter é uma biblioteca de desenvolvimento mobile hibrida que utiliza como linguagem principal o Dart criada pelo time do Google com o intuito de desenvolver aplicações móveis para iOS e Android, web e Desktop (Mac, Linux, Windows) com uma única base de código, acelerando o desenvolvimento, reduzindo os custos de desenvolvimento e até mesmo o tempo de lançamento de um produto no mercado.
+
+## Mecanismos e Abordagens Arquiteturais
